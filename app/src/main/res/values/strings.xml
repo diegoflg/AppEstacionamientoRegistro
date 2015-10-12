@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">ESAN</string>
+
+    <!-- ACTIVITY_MAIN.XML -->
+    <string name="hintUsuario">. Usuario</string>
+    <string name="hintPassword">. Contraseña</string>
+    <string name="btAcceder">Acceder</string>
+
+
+    <!-- LAY_POPUP.XML -->
+    <string name="tvPoptv2">Esto es un simple Popup</string>
+    <string name="btCerrar">Cerrar</string>
+    <string name="btLlamar">Llamar</string>
+    <string name="btPCerrar">Cerrar</string>
+
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_maps">Map</string>
+</resources>

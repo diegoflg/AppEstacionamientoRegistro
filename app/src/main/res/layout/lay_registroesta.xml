@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:clickable="true"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+
+    <TextView
+        android:id="@+id/textViewestareg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="Estacionamiento"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="#f1010101"
+        android:textSize="30sp"/>
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewestareg">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/sep1"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="ESAN"
+                android:id="@+id/textView"
+                android:layout_marginLeft="20dp"
+                android:layout_below="@id/sep1"
+                android:layout_marginTop="30dp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sema1"
+                android:src="@drawable/rojoapagado"
+                android:layout_below="@id/textView"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_alignLeft="@+id/textView"
+                android:layout_alignStart="@+id/textView"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sema3"
+                android:src="@drawable/verdeprendido"
+                android:layout_alignTop="@+id/sema2"
+                android:layout_toRightOf="@+id/sema2"
+
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sema2"
+                android:src="@drawable/amarilloapagado"
+                android:layout_alignTop="@+id/sema1"
+                android:layout_toRightOf="@+id/sema1"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:id="@+id/sep2"
+                android:layout_below="@+id/sema1"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Alonso de la Molina"
+                android:id="@+id/textView3"
+                android:layout_below="@+id/sep2"
+                android:layout_alignLeft="@+id/textView"
+                android:layout_alignStart="@+id/textView"
+                android:layout_marginTop="30dp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sema4"
+                android:src="@drawable/rojoapagado"
+                android:layout_below="@id/textView3"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_alignLeft="@+id/textView"
+                android:layout_alignStart="@+id/textView"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sema5"
+                android:src="@drawable/verdeprendido"
+
+
+                android:layout_alignTop="@+id/sema6"
+                android:layout_toRightOf="@+id/sema2"
+                android:layout_toEndOf="@+id/sema2"
+                android:background="#ffffffff" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sema6"
+                android:src="@drawable/amarilloapagado"
+
+                android:layout_alignTop="@+id/sema4"
+                android:layout_alignLeft="@+id/sema2"
+                android:layout_alignStart="@+id/sema2" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:id="@+id/sep3"
+                android:layout_below="@+id/sema4"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="El Polo"
+                android:id="@+id/textView4"
+                android:layout_marginTop="30dp"
+                android:layout_below="@+id/sep3"
+                android:layout_alignLeft="@+id/textView3"
+                android:layout_alignStart="@+id/textView3" />
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sema7"
+                android:src="@drawable/rojoapagado"
+                android:layout_below="@id/textView4"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_alignLeft="@+id/textView"
+                android:layout_alignStart="@+id/textView"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sema8"
+                android:src="@drawable/verdeprendido"
+
+
+                android:layout_alignTop="@+id/sema9"
+                android:layout_alignLeft="@+id/sema5"
+                android:layout_alignStart="@+id/sema5" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sema9"
+                android:src="@drawable/amarilloapagado"
+
+                android:layout_alignTop="@+id/sema7"
+                android:layout_alignLeft="@+id/sema6"
+                android:layout_alignStart="@+id/sema6" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:id="@+id/sep4"
+                android:layout_below="@+id/sema7"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+
+        </RelativeLayout>
+
+
+
+    </ScrollView>
+
+
+
+
+
+</RelativeLayout>
+
+
+
+
+
+
