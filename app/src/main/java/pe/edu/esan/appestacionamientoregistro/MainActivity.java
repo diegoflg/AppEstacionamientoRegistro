@@ -1,734 +1,843 @@
 package pe.edu.esan.appestacionamientoregistro;
 
+import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
+import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.ContentValues;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.wifi.WifiManager;
+import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.TypefaceSpan;
+import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.AdapterView;
+import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemSelectedListener;
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
+
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Map;
+import java.util.List;
+
+
 
 public class MainActivity extends ActionBarActivity {
+
     //Declaracion de variables
 
-    //Texto para que se vea en la consola para verificacion del codigo
-    private final String TAG= "APP";
+    //Para el semaforo
+    private ImageView sem1,sem2,sem3,sem4,sem5,sem6,sem7,sem8,sem9;
 
-    //Cuadros de textos editables
-    EditText et1,et2;
+    //Dato del color activo del semaforo
+    private String libres;
+    private String libres2;
+    private String libres3;
 
-    //Cadena de texto que obtiene el lenguaje del celular
-    String langloc=Locale.getDefault().getDisplayLanguage();
+    //Dialogo de progreso de carga
+    private ProgressDialog pDialog;
 
-    //Numero entero que define el lenguaje inicial del app
-    int langinicial=0;
+    // JSON parser class
+    JSONParser jsonParser = new JSONParser();
+    private static final String REGISTER_URL = "http://www.estacionamientoesan.site88.net/cas/register.php";
+    private static final String REGISTER_URL2 = "http://www.estacionamientoesan.site88.net/cas/register2.php";
+    private static final String REGISTER_URL3 = "http://www.estacionamientoesan.site88.net/cas/register3.php";
+    private static final String TAG_SUCCESS = "success";
+    private static final String TAG_MESSAGE = "message";
 
-    //Numero entero que define el lenguaje final
-    int lang=0;
-
-    //Boton del login para acceder al app
-    Button botonacceder; //SOLO SE USA PARA CAMBIAR LA FUENTE
-
-    //Cadena de texto que dice el resultado del loggin
-    String loggresult="";
-
-    //Cadena de texto que muestra como mensaje el valor dado
-    String mensaje="Usuario o password invalida";
-
-    //Entero que manda el tipo de usuario
-    int tipo=1;
+    private static String url_all_empresas = "http://www.estacionamientoesan.site88.net/esconnect/get_all_empresas.php";
+    private static final String TAG_PRODUCTS = "users";
+    private static final String TAG_NOMBRE = "username";
+    private static final String TAG_NOMBRE2 = "username2";
+    private static final String TAG_NOMBRE3 = "username3";
+    private String estado="waa";
+    private String estado2="waa";
+    private String estado3="waa";
+    JSONArray products = null;
+    JSONParser jParser = new JSONParser();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //Se guarda el estado del fragmento actual
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.lay_registroesta);
 
-        //Se obtiene la pantalla del movil y se oculta el teclado de la pantalla
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        sem1=(ImageView)findViewById(R.id.sema1);
 
-        //Manda el contenido al fragmento con la vista del layout correspondiente
-        setContentView(R.layout.activity_main);
+        //Semaforo amarillo
+        sem2=(ImageView)findViewById(R.id.sema2);
 
-        //Obtiene el servicio de WiFi
-        WifiManager wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-
-        //Activa el WiFi
-        wifi.setWifiEnabled(true);
-
-
-
-
-
-        if(langloc.equals("español")){
-            //Da valor al entero determinado para el lenguaje inicial
-            langinicial=0;
-
-        }
-        if(langloc.equals("English")){
-            //Da valor al entero determinado para el lenguaje inicial
-            langinicial=1;
-
-        }
-        if(langloc.equals("français")){
-            //Da valor al entero determinado para el lenguaje inicial
-            langinicial=2;
-
-        }
-
-        //Se crea una lista de datos
-        ArrayList<ItemData> list=new ArrayList<>();
-
-        //Dependiendo del lenguaje inicial se veran los casos
-        switch(langinicial){
-            case 0:
-                //Si el lenguaje inicial es Español el texto de la lista dira
-                list.add(new ItemData("Español",R.drawable.es));
-                list.add(new ItemData("Ingles",R.drawable.um));
-                list.add(new ItemData("Frances",R.drawable.fr));
-                break;
-            case 1:
-                //Si el lenguaje inicial es Ingles el texto de la lista dira
-                list.add(new ItemData("Spanish",R.drawable.es));
-                list.add(new ItemData("English",R.drawable.um));
-                list.add(new ItemData("French",R.drawable.fr));
-                break;
-            case 2:
-                //Si el lenguaje inicial es Frances el texto de la lista dira
-                list.add(new ItemData("Espagnol",R.drawable.es));
-                list.add(new ItemData("Anglais",R.drawable.um));
-                list.add(new ItemData("Français",R.drawable.fr));
-                break;
-        }
+        //Semaforo verde
+        sem3=(ImageView)findViewById(R.id.sema3);
+        sem4=(ImageView)findViewById(R.id.sema4);
+        sem5=(ImageView)findViewById(R.id.sema6);
+        sem6=(ImageView)findViewById(R.id.sema5);
+        sem7=(ImageView)findViewById(R.id.sema7);
+        sem8=(ImageView)findViewById(R.id.sema9);
+        sem9=(ImageView)findViewById(R.id.sema8);
 
 
-        //Se crea un Spinner o seleccionador de lista corta y se le da su valor como elemento del layout
-        Spinner sp=(Spinner)findViewById(R.id.spinner);
 
-        //Se crea un nuevo adaptador a partir de la clase SpinnerAdapter y se le da sus parametros
-        SpinnerAdapter adapter=new SpinnerAdapter(this,
-                R.layout.spinerlayout,R.id.txt,list);
-
-        //Se le asigna un adaptador al spinner
-        sp.setAdapter(adapter);
+        new LoadAllProducts().execute();// Este metodo busca el estado actual del estacionamiento en la base de datos
 
 
-        //Cuando el Spinner es clickeado
-        sp.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+
+
+
+        sem1.setOnClickListener(new View.OnClickListener() {//se detecta si se hizo click a este boton(bombilla roja del semaforo)
             @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1,
-                                       int arg2, long arg3) {
-                //Declaracion de numero entero que obtiene la posicion del item seleccionado
-                int index = arg0.getSelectedItemPosition();
+            public void onClick(View v) {
 
-                //Se le da un valor al lenguaje
-                lang = index;
+                showPopup(MainActivity.this,1);
 
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-                //Metodo cuando nada es seleccionado
             }
         });
 
-        //Declaracion de variable
-        SpannableString s = new SpannableString("ESAN");
-        s.setSpan(new TypefaceSpan("HelveticaNeue-Roman.ttf"), 0 , s.length(),
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        // Update the action bar title with the TypefaceSpan instance
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(s);
-
-        //Creacion de variable cuyo valor se le asigna como el soporte de la barra de actividades
-        android.support.v7.app.ActionBar abLogin = getSupportActionBar();
-
-        //Texto
-        CharSequence titulo = abLogin.getTitle().toString();
-
-        //Declaracion de variables de cuadros de texto con sus elementos determinados en el layout
-        et1 = (EditText) findViewById(R.id.et1);
-
-        //Declaracion de variables de cuadros de texto con sus elementos determinados en el layout
-        et2 = (EditText) findViewById(R.id.et2);
-
-
-        botonacceder = (Button) findViewById(R.id.button); //SOLO ES USADO PARA LA FUENTE
-
-        //Asingacion de valores de texto a los cuadros de texto
-        et1.setText("1005831");
-
-        //Asingacion de valores de texto a los cuadros de texto
-        et2.setText("esan1520");
-
-
-        //ESTO ES PARA LA FUENTE
-        String font_path = "font/HelveticaNeue-Light.ttf"; //ruta de la fuente
-        Typeface TF = Typeface.createFromAsset(getAssets(),font_path);//llamanos a la CLASS TYPEFACE y la definimos con un CREATE desde ASSETS con la ruta STRING
-
-        //Se le asigna una fuente al cuadro de texto
-        et1.setTypeface(TF);
-
-        //Se le asigna una fuente al cuadro de texto
-        et2.setTypeface(TF);
-
-        //Se le asigna una fuente al texto del boton
-        botonacceder.setTypeface(TF);
-
-        //Se crea y da valor a una base de datos del tipo creado en la clase AdminBD
-        AdminBD admin = new AdminBD(this, "BDESAN4", null, 1);
-
-        //Se crea una variable que permite la escritura en la base de datos
-        SQLiteDatabase bd = admin.getWritableDatabase();
-
-
-        //Se crea un cursor para la base de datos
-        Cursor fila1 = bd.rawQuery("select usuario from Persona", null);
-        if (fila1.moveToFirst()) {
-
-
-
-        } else {
-
-
-            //Se declara una variable de texto y se le da un valor
-            String usuario = "alumno";
-
-            //Se declara una variable de texto y se le da un valor
-            String password = "alumno";
-
-
-            //Se da un primer registro de datos
-            ContentValues registro = new ContentValues();
-            registro.put("usuario", usuario);
-            registro.put("password", password);
-
-            //Se insertan los datos
-            bd.insert("Persona", null, registro);
-
-
-
-            //Se declara una variable de texto y se le da un valor
-            String usuario2 = "alumnodos";
-
-            //Se declara una variable de texto y se le da un valor
-            String password2 = "alumnodos";
-
-            //Se da un segundo registro de datos
-            ContentValues registro2 = new ContentValues();
-            registro2.put("usuario", usuario2);
-            registro2.put("password", password2);
-
-            //Se insertan los datos
-            bd.insert("Persona", null, registro2);
-
-
-            //Se declara una variable de texto y se le da un valor
-            String usuario3 = "parking";
-
-            //Se declara una variable de texto y se le da un valor
-            String password3 = "esanmmxv";
-
-            //Se da un tercer registro de datos
-            ContentValues registro3 = new ContentValues();
-            registro3.put("usuario", usuario3);
-            registro3.put("password", password3);
-
-            //Se insertan los datos
-            bd.insert("Persona", null, registro3);
-
-
-        }
-
-        //Cerramos la base de datos
-        bd.close();
-
-
-
-
-    }
-
-    public void acceder(){
-        //Metodo para acceder a la aplicacion
-
-        //Se crean cadenas de texto
-        String usuario, password,todo,us,pass;
-
-        //Se les da valor a dos variables de texto obtiendo de lo que se de en el login
-        us=et1.getText().toString();
-        pass=et2.getText().toString();
-
-        if(us.contains("@")){
-            Log.i("ACCEDER", "EL USUARIO CONTIENE UN ARROBA");
-        }else{
-            Log.i("ACCEDER", "EL USUARIO NO CONTIENE UN ARROBA");
-        }
-
-        //Se crea una base de datos del tipo AdminBD
-        AdminBD admin= new AdminBD(this, "BDESAN4",null, 1);
-
-        //Se permite la escritura y lectura de la base de datos
-        SQLiteDatabase bd=admin.getWritableDatabase();
-
-        //Se declaran y dan valores a dos cadenas de texto
-        String mensaje2="Incorrect user or password";
-        String mensaje3="Mot de passe ou utilisateur incorrect";
-
-        //Se crea un nuevo paquete de datos
-        Bundle b=new Bundle();
-
-        //Se crea un nuevo cursor y se le da su valor correspondiente
-        Cursor c=bd.rawQuery("SELECT usuario,password FROM Persona",null);
-
-        //Se le da valor vacio al texto declarado anteriormente
-        todo="";
-
-        if(c.moveToFirst())
-        {
-            do {
-                //La variable obtiene el dato dado en el login
-                usuario=c.getString(0);
-                Log.v("usuario", usuario);
-
-                //La variable obtiene el dato dado en el login
-                password=c.getString(1);
-                Log.v("password", password);
-
-                if(us.equals(usuario) && pass.equals(password)) {
-
-                    mensaje = "correcto";
-
-                    //Verifica el tipo de usuario y da un valor al tipo
-                    if (us.equals("alumno")) {
-                        tipo = 1;
-                    }
-                    if (us.equals("parking")) {
-                        tipo = 2;
-                    }
-
-                    //Guarda en el paquete de datos el tipo de usuario como dato
-                    b.putInt("tipo", tipo);
-
-                    Log.v("tipo", String.valueOf(tipo));
-
-                    //Intenta abrir la segunda pantalla de la aplicacion
-                    Intent i = new Intent(this, MainActivity2Activity.class);
-
-                    //Envia los datos del paquete de datos a la nueva pantalla
-                    i.putExtras(b);
-
-
-
-
-                    //Obtiene la instancia del lenguaje
-                    Datah.getInstance().setLang(lang);
-
-
-
-                    //Segun el lenguaje
-                    switch(lang){
-                        case 0:
-                            //Declaracion de variable Locale y asignacion de valor
-                            Locale locale = new Locale("es");
-
-                            //Se da valor determinado a la variable
-                            Locale.setDefault(locale);
-
-                            //Crea una nueva variable de configuracion
-                            Configuration mConfig = new Configuration();
-
-                            //Da valor a la variable segun la otra variable
-                            mConfig.locale = locale;
-
-                            //Obtiene el contexto, sus recursos, y actualiza la configuracion segun los parametros
-                            getBaseContext().getResources().updateConfiguration(mConfig,
-                                    getBaseContext().getResources().getDisplayMetrics());
-
-                            break;
-
-                        case 1:
-                            //Declaracion de variable Locale y asignacion de valor
-                            Locale locale2 = new Locale("en");
-
-                            //Se da valor determinado a la variable
-                            Locale.setDefault(locale2);
-
-                            //Crea una nueva variable de configuracion
-                            Configuration mConfig2 = new Configuration();
-
-                            //Da valor a la variable segun la otra variable
-                            mConfig2.locale = locale2;
-
-                            //Obtiene el contexto, sus recursos, y actualiza la configuracion segun los parametros
-                            getBaseContext().getResources().updateConfiguration(mConfig2,
-                                    getBaseContext().getResources().getDisplayMetrics());
-
-                            break;
-
-                        case 2:
-                            //Declaracion de variable Locale y asignacion de valor
-                            Locale locale3 = new Locale("fr");
-
-                            //Se da valor determinado a la variable
-                            Locale.setDefault(locale3);
-
-                            //Crea una nueva variable de configuracion
-                            Configuration mConfig3 = new Configuration();
-
-                            //Da valor a la variable segun la otra variable
-                            mConfig3.locale = locale3;
-
-                            //Obtiene el contexto, sus recursos, y actualiza la configuracion segun los parametros
-                            getBaseContext().getResources().updateConfiguration(mConfig3,
-                                    getBaseContext().getResources().getDisplayMetrics());
-
-                            break;
-
-                    }
-
-
-
-
-                    //Empieza el intento de abrir la nueva pantalla
-                    startActivity(i);
-
-                    //Termina la actividad actual
-                    finish();
-
-
-                }
-
-                //Da valor a la cadena de texto anteriormente declarada
-                todo=todo+usuario+" " +password+" " + "\n";
-            }while(c.moveToNext());
-
-
-            if(mensaje.equals("correcto")){
-
-            }else{
-
-
-                //Dependiendo del idioma
-                switch(lang){
-                    case 0:
-                        //Crea un mensaje en pantalla
-                        Toast t=Toast.makeText(this,mensaje, Toast.LENGTH_SHORT);
-
-                        //Muestra el mensaje corto
-                        t.show();
-
-
-
-                        break;
-
-                    case 1:
-                        //Crea un mensaje en pantalla
-                        Toast y=Toast.makeText(this,mensaje2, Toast.LENGTH_SHORT);
-
-                        //Muestra el mensaje corto
-                        y.show();
-
-
-
-                        break;
-
-                    case 2:
-                        //Crea un mensaje en pantalla
-                        Toast u=Toast.makeText(this,mensaje3, Toast.LENGTH_SHORT);
-
-                        //Muestra el mensaje corto
-                        u.show();
-
-
-
-                        break;
-
-
-
-
-
-
-
-                }
-
-
+        sem2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                showPopup(MainActivity.this,2);
+                //Cuando el semaforo amarillo es clickeado
+                //Si es que existe conexion a internet
 
 
 
             }
+        });
+
+        sem3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopup(MainActivity.this,3);
+                //Cuando el semaforo verde es clickeado
+                //Si es que existe conexion a internet
 
 
 
+            }
+        });
 
-        }
+        sem4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopup(MainActivity.this,4);
+                //Cuando el semaforo verde es clickeado
+                //Si es que existe conexion a internet
 
 
-        //Intent i = new Intent(this,MainActivity2Activity.class);
-        //AstartActivity(i);
+
+            }
+        });
+
+        sem5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopup(MainActivity.this,5);
+                //Cuando el semaforo verde es clickeado
+                //Si es que existe conexion a internet
+
+
+            }
+        });
+
+        sem6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopup(MainActivity.this,6);
+                //Cuando el semaforo verde es clickeado
+                //Si es que existe conexion a internet
+
+
+
+            }
+        });
+
+
+        sem7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopup(MainActivity.this,7);
+                //Cuando el semaforo verde es clickeado
+                //Si es que existe conexion a internet
+
+
+
+            }
+        });
+
+        sem8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopup(MainActivity.this,8);
+                //Cuando el semaforo verde es clickeado
+                //Si es que existe conexion a internet
+
+
+
+            }
+        });
+
+        sem9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopup(MainActivity.this,9);
+                //Cuando el semaforo verde es clickeado
+                //Si es que existe conexion a internet
+
+
+
+            }
+        });
+
 
     }
 
 
-    public void logstart(View v){
-        //Verifica la conexion a internet
-        if(isNetworkAvailable()==true){
-            //Obtiene los datos ingresados del Login
-            Datah.getInstance().setUser(et1.getText().toString());
-            Datah.getInstance().setPass(et2.getText().toString());
+    class CreateUser extends AsyncTask<String, String, String> {//Metodo que guarda el estado en la base de datos
 
-            //Ejecuta la clase del mismo nombre
-            new logg().execute();
-
-        }else{
-            //Se crea y da valor a un mensaje corto en pantalla
-            Toast t=Toast.makeText(this,"No hay coneccion a internet", Toast.LENGTH_SHORT);
-
-            //Se muestra el mensaje en pantalla
-            t.show();
-
-        }
-
-
-
-
-
-    }
-
-    private class logg extends AsyncTask<String, Void, String> {
-        //Se crea un da valor a un dialogo de progreso
-        final ProgressDialog dialog = ProgressDialog.show(MainActivity.this, "", "Please wait, Loading Page...", true);
 
         @Override
         protected void onPreExecute() {
-            //Metodo anterior a la ejecucion de la clase
+            //Metodo antes de ser ejecutada la accion
+
+
             super.onPreExecute();
-
-
+            pDialog = new ProgressDialog(MainActivity.this);
+            pDialog.setMessage("Creating User...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
 
         }
 
         @Override
-        protected String doInBackground(String... params) {
-            //Metodo que se desarrolla en segundo plano
+        protected String doInBackground(String... args) {
+            //Metodo que se hace en segundo plano
 
-            Log.v("v1", "paso2");
-
+            // TODO Auto-generated method stub
+            // Check for success tag
+            int success;
+            String username = libres;
             try {
-                //Se crea y da valor a una variable para la conexion a la pagina web dada
-                Connection.Response res1 = Jsoup.connect("http://esanvirtual.edu.pe/login/index.php").method(Connection.Method.GET).timeout(0).execute();
-
-                //Se crea y da valor a una variable del tipo documento
-                Document doc = res1.parse();
-
-                //Se crea y da valor a una variable del tipo Mapa
-                Map welcomCookies = res1.cookies();
+                // Building Parameters
+                List params = new ArrayList();
+                params.add(new BasicNameValuePair("username", username));
 
 
-                //Se crea una variable de la pagina web y se le da valor
-                Connection.Response res2 = Jsoup.connect("http://esanvirtual.edu.pe/login/index.php")
-                        .data("username", et1.getText().toString())
-                        .data("password", et2.getText().toString())
-                        .cookies(welcomCookies)
-                        .timeout(10000)
-                        .method(Connection.Method.POST)
-                        .execute();
+                Log.d("request!", "starting");
 
-                //Se crea una variable del tipo documento y se le da valor
-                Document docl = res2.parse();
-                Log.v("titulo", docl.title());
+                //Posting user data to script
+                JSONObject json = jsonParser.makeHttpRequest(
+                        REGISTER_URL, "POST", params);
 
-                //Se verifica el texto de la pagina 1
-                if(docl.title().equals("ESANVIRTUAL")){
-                    loggresult="si";
-                    mensaje="correcto";
+                // full json response
+                Log.d("Registering attempt", json.toString());
+
+                // json success element
+                success = json.getInt(TAG_SUCCESS);
+                if (success == 1) {
+                    Log.d("User Created!", json.toString());
+                    return json.getString(TAG_MESSAGE);
+                }else{
+                    Log.d("Registering Failure!", json.getString(TAG_MESSAGE));
+                    return json.getString(TAG_MESSAGE);
 
                 }
-
-                //Se verifica el texto de la pagina 2
-                if(docl.title().equals("ESANVIRTUAL: Entrar al sitio")){
-                    loggresult="no";
-
-                }
-
-
-
-
-
-
-            } catch (IOException e) {
-                //Se imprime el error en la consola
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
 
-
             return null;
+
+        }
+
+        protected void onPostExecute(String file_url) {
+            //Metodo que se hace terminada la ejecucion de la accion
+
+            // dismiss the dialog once product deleted
+            pDialog.dismiss();
+            if (file_url != null){
+                Toast.makeText(MainActivity.this, file_url, Toast.LENGTH_LONG).show();
+            }
+
+
+
+        }
+    }
+
+    class CreateUser2 extends AsyncTask<String, String, String> {//Metodo que guarda el estado en la base de datos
+
+
+        @Override
+        protected void onPreExecute() {
+            //Metodo antes de ser ejecutada la accion
+
+
+            super.onPreExecute();
+            pDialog = new ProgressDialog(MainActivity.this);
+            pDialog.setMessage("Creating User...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+
         }
 
         @Override
-        protected void onPostExecute(String s) {
-            //Metodo despues de ejecutada la clase
-            super.onPostExecute(s);
+        protected String doInBackground(String... args) {
+            //Metodo que se hace en segundo plano
 
-            //Desaparece el dialogo de progreso
-            dialog.dismiss();
-
-
-
-            if(loggresult.equals("si")){
-
-
-                //Desaparece el dialogo de progreso
-                dialog.dismiss();
+            // TODO Auto-generated method stub
+            // Check for success tag
+            int success;
+            String username2 = libres2;
+            try {
+                // Building Parameters
+                List params = new ArrayList();
+                params.add(new BasicNameValuePair("username2", username2));
 
 
-                //Se crea una variable de paquete de datos
-                Bundle b=new Bundle();
+                Log.d("request!", "starting");
 
-                //Se le asigna un valor a la variable mensaje
-                mensaje = "correcto";
+                //Posting user data to script
+                JSONObject json = jsonParser.makeHttpRequest(
+                        REGISTER_URL2, "POST", params);
+
+                // full json response
+                Log.d("Registering attempt", json.toString());
+
+                // json success element
+                success = json.getInt(TAG_SUCCESS);
+                if (success == 1) {
+                    Log.d("User Created!", json.toString());
+                    return json.getString(TAG_MESSAGE);
+                }else{
+                    Log.d("Registering Failure!", json.getString(TAG_MESSAGE));
+                    return json.getString(TAG_MESSAGE);
+
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+
+        }
+
+        protected void onPostExecute(String file_url) {
+            //Metodo que se hace terminada la ejecucion de la accion
+
+            // dismiss the dialog once product deleted
+            pDialog.dismiss();
+            if (file_url != null){
+                Toast.makeText(MainActivity.this, file_url, Toast.LENGTH_LONG).show();
+            }
 
 
-                //Se guarda un valor en el paquete de datos
-                b.putInt("tipo", tipo);
 
-                Log.v("tipo", String.valueOf(tipo));
-
-                //Se crea y da valor a un intento de cambio de pantalla: pasar de una a otra pantalla
-                Intent i = new Intent(getApplicationContext(), MainActivity2Activity.class);
-
-                //Se le manda el paquete de datos a la segunda pantalla
-                i.putExtras(b);
+        }
+    }
 
 
+    class CreateUser3 extends AsyncTask<String, String, String> {//Metodo que guarda el estado en la base de datos
 
 
-                //Se obtiene la instancia y se le asigna un valor
-                Datah.getInstance().setLang(lang);
+        @Override
+        protected void onPreExecute() {
+            //Metodo antes de ser ejecutada la accion
+
+
+            super.onPreExecute();
+            pDialog = new ProgressDialog(MainActivity.this);
+            pDialog.setMessage("Creating User...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+
+        }
+
+        @Override
+        protected String doInBackground(String... args) {
+            //Metodo que se hace en segundo plano
+
+            // TODO Auto-generated method stub
+            // Check for success tag
+            int success;
+            String username3 = libres3;
+            try {
+                // Building Parameters
+                List params = new ArrayList();
+                params.add(new BasicNameValuePair("username3", username3));
+
+
+                Log.d("request!", "starting");
+
+                //Posting user data to script
+                JSONObject json = jsonParser.makeHttpRequest(
+                        REGISTER_URL3, "POST", params);
+
+                // full json response
+                Log.d("Registering attempt", json.toString());
+
+                // json success element
+                success = json.getInt(TAG_SUCCESS);
+                if (success == 1) {
+                    Log.d("User Created!", json.toString());
+                    return json.getString(TAG_MESSAGE);
+                }else{
+                    Log.d("Registering Failure!", json.getString(TAG_MESSAGE));
+                    return json.getString(TAG_MESSAGE);
+
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+
+        }
+
+        protected void onPostExecute(String file_url) {
+            //Metodo que se hace terminada la ejecucion de la accion
+
+            // dismiss the dialog once product deleted
+            pDialog.dismiss();
+            if (file_url != null){
+                Toast.makeText(MainActivity.this, file_url, Toast.LENGTH_LONG).show();
+            }
 
 
 
+        }
+    }
 
-                switch(lang){
-                    case 0:
-                        //Se crea una nueva variable de tipo Locale
-                        Locale locale = new Locale("es");
 
-                        //Se le asigna valor
-                        Locale.setDefault(locale);
 
-                        //Se crea una variable de configuracion
-                        Configuration mConfig = new Configuration();
+    class LoadAllProducts extends AsyncTask<String, String, String> {
 
-                        //Se le asigna valor a la variable
-                        mConfig.locale = locale;
+        /**
+         * Antes de empezar el background thread Show Progress Dialog
+         * */
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(MainActivity.this);
+            pDialog.setMessage("Creating User...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
 
-                        //Se obtiene el contexto, sus recursos y se actualiza su configuracion con los parametros
-                        getBaseContext().getResources().updateConfiguration(mConfig,
-                                getBaseContext().getResources().getDisplayMetrics());
+        }
 
-                        break;
+        protected String doInBackground(String... args) {
+            List params = new ArrayList();
+            JSONObject json = jParser.makeHttpRequest(url_all_empresas, "GET", params);
+            try {
+                int success = json.getInt(TAG_SUCCESS);
+                if (success == 1) {
+                    products = json.getJSONArray(TAG_PRODUCTS);
+                    for (int i = 0; i < products.length(); i++) {
+                        JSONObject c = products.getJSONObject(i);
+                        estado=c.getString(TAG_NOMBRE);
+                        estado2=c.getString(TAG_NOMBRE2);
+                        estado3=c.getString(TAG_NOMBRE3);
+                        Log.d("estado registro", c.getString(TAG_NOMBRE));
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+        protected void onPostExecute(String file_url) {
+            //Despues de ser ejecutada la accion
 
+            //El dialogo de progreso desaparece
+            pDialog.dismiss();
+
+            //Obtiene el color elegido del semaforo para que los otros dos se apaguen
+            if(estado.equals("rojo")){
+                sem1.setImageResource(R.drawable.rojoprendido);
+                sem2.setImageResource(R.drawable.amarilloapagado);
+                sem3.setImageResource(R.drawable.verdeapagado);
+
+                //Obtiene el color elegido del semaforo para que los otros dos se apaguen
+            }
+            if(estado.equals("amarillo")){
+                sem1.setImageResource(R.drawable.rojoapagado);
+                sem2.setImageResource(R.drawable.amarilloprendido);
+                sem3.setImageResource(R.drawable.verdeapagado);
+
+                //Obtiene el color elegido del semaforo para que los otros dos se apaguen
+            }
+            if(estado.equals("verde")){
+                sem1.setImageResource(R.drawable.rojoapagado);
+                sem2.setImageResource(R.drawable.amarilloapagado);
+                sem3.setImageResource(R.drawable.verdeprendido);
+
+            }
+
+            if(estado2.equals("rojo")){
+                sem4.setImageResource(R.drawable.rojoprendido);
+                sem5.setImageResource(R.drawable.amarilloapagado);
+                sem6.setImageResource(R.drawable.verdeapagado);
+
+                //Obtiene el color elegido del semaforo para que los otros dos se apaguen
+            }
+            if(estado2.equals("amarillo")){
+                sem4.setImageResource(R.drawable.rojoapagado);
+                sem5.setImageResource(R.drawable.amarilloprendido);
+                sem6.setImageResource(R.drawable.verdeapagado);
+
+                //Obtiene el color elegido del semaforo para que los otros dos se apaguen
+            }
+            if(estado2.equals("verde")){
+                sem4.setImageResource(R.drawable.rojoapagado);
+                sem5.setImageResource(R.drawable.amarilloapagado);
+                sem6.setImageResource(R.drawable.verdeprendido);
+
+            }
+
+            if(estado3.equals("rojo")){
+                sem7.setImageResource(R.drawable.rojoprendido);
+                sem8.setImageResource(R.drawable.amarilloapagado);
+                sem9.setImageResource(R.drawable.verdeapagado);
+
+                //Obtiene el color elegido del semaforo para que los otros dos se apaguen
+            }
+            if(estado3.equals("amarillo")){
+                sem7.setImageResource(R.drawable.rojoapagado);
+                sem8.setImageResource(R.drawable.amarilloprendido);
+                sem9.setImageResource(R.drawable.verdeapagado);
+
+                //Obtiene el color elegido del semaforo para que los otros dos se apaguen
+            }
+            if(estado3.equals("verde")){
+                sem7.setImageResource(R.drawable.rojoapagado);
+                sem8.setImageResource(R.drawable.amarilloapagado);
+                sem9.setImageResource(R.drawable.verdeprendido);
+
+            }
+
+        }
+    }
+
+
+    private void showPopup(final Activity context, final int opc) {
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        MainActivity.this.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        int height = displaymetrics.heightPixels;
+        double width = displaymetrics.widthPixels;
+
+        Log.v("tamano",String.valueOf(height));
+        Log.v("tamano",String.valueOf(width));
+
+        double popupHeight = height*0.52;
+        double popupWidth = width*0.625;
+
+
+        LinearLayout viewGroup = (LinearLayout) context.findViewById(R.id.popup3);
+        LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View layout = layoutInflater.inflate(R.layout.popup3, viewGroup);
+
+        // Creating the PopupWindow
+        final PopupWindow popup = new PopupWindow(context);
+        popup.setContentView(layout);
+        popup.setWidth((int) Math.round(popupHeight));
+        popup.setHeight((int) Math.round(popupWidth));
+        popup.setFocusable(true);
+        popup.setOutsideTouchable(false);
+
+        // Displaying the popup at the specified location, + offsets.
+        popup.showAtLocation(layout, Gravity.CENTER, 0, 0);
+
+        // FUENTE PARA TEXTO EN POPUP Y BOTONES:
+        String font_pathPP = "font/HelveticaNeue-Light.ttf"; //ruta de la fuente
+        Typeface TPP = Typeface.createFromAsset(MainActivity.this.getAssets(),font_pathPP);//llamanos a la CLASS TYPEFACE y la definimos
+        // con un CREATE desde ASSETS con la ruta STRING
+
+        // Getting a reference to Close button, and close the popup when clicked.
+        Button close = (Button) layout.findViewById(R.id.call3);
+        Button call = (Button) layout.findViewById(R.id.close3);
+        final ImageView popim=(ImageView)layout.findViewById(R.id.pop3im);
+        call.setTypeface(TPP);
+        close.setTypeface(TPP);
+
+
+        final TextView tv1 = (TextView) layout.findViewById(R.id.pop3tv1);
+        tv1.setTypeface(TPP);
+
+
+
+        switch(opc) {
+            case 1:
+                tv1.setText("Esta seguro que desea cambiar el estado del estacionamiento de ESAN a rojo?");
+                popim.setImageResource(R.drawable.rojoprendido);
+
+                break;
+
+            case 2:
+                tv1.setText("Esta seguro que desea cambiar el estado del estacionamiento de ESAN a amarillo?");
+                popim.setImageResource(R.drawable.amarilloprendido);
+
+                break;
+
+            case 3:
+                tv1.setText("Esta seguro que desea cambiar el estado del estacionamiento de ESAN a verde?");
+                popim.setImageResource(R.drawable.verdeprendido);
+
+                break;
+
+            case 4:
+                tv1.setText("Esta seguro que desea cambiar el estado del estacionamiento de Alonso de la Molina a rojo?");
+                popim.setImageResource(R.drawable.rojoprendido);
+
+                break;
+
+            case 5:
+                tv1.setText("Esta seguro que desea cambiar el estado del estacionamiento de Alonso de la Molina a amarillo?");
+                popim.setImageResource(R.drawable.amarilloprendido);
+
+                break;
+
+            case 6:
+                tv1.setText("Esta seguro que desea cambiar el estado del estacionamiento de Alonso de la Molina a verde?");
+                popim.setImageResource(R.drawable.verdeprendido);
+                break;
+
+            case 7:
+                tv1.setText("Esta seguro que desea cambiar el estado del estacionamiento de El Polo a rojo?");
+                popim.setImageResource(R.drawable.rojoprendido);
+
+                break;
+
+            case 8:
+                tv1.setText("Esta seguro que desea cambiar el estado del estacionamiento de El Polo a amarillo?");
+                popim.setImageResource(R.drawable.amarilloprendido);
+
+                break;
+
+            case 9:
+                tv1.setText("Esta seguro que desea cambiar el estado del estacionamiento de El Polo a verde?");
+                popim.setImageResource(R.drawable.verdeprendido);
+
+                break;
+        }
+
+
+
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popup.dismiss();
+            }
+        });
+
+        call.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popup.dismiss();
+
+
+                switch(opc) {
                     case 1:
-                        //Se crea una nueva variable de tipo Locale
-                        Locale locale2 = new Locale("en");
 
-                        //Se le asigna valor
-                        Locale.setDefault(locale2);
+                        if (isNetworkAvailable() == true) {
+                            sem1.setImageResource(R.drawable.rojoprendido);//Se activa la imagen del rojo predido
+                            sem2.setImageResource(R.drawable.amarilloapagado);//Se apaga la luz amarilla
+                            sem3.setImageResource(R.drawable.verdeapagado);//Se apaga la luz verde
+                            libres = "rojo";
+                            new CreateUser().execute();// se ejecuta este metodo, que guarda el estado "rojo" en la base de datos
 
-                        //Se crea una variable de configuracion
-                        Configuration mConfig2 = new Configuration();
 
-                        //Se le asigna valor a la variable
-                        mConfig2.locale = locale2;
-
-                        //Se obtiene el contexto, sus recursos y se actualiza su configuracion con los parametros
-                        getBaseContext().getResources().updateConfiguration(mConfig2,
-                                getBaseContext().getResources().getDisplayMetrics());
+                            //Si no existe conexion a internet
+                        } else {
+                            Toast.makeText(MainActivity.this, "No hay conexio,n a internet", Toast.LENGTH_LONG).show();
+                            Log.d("internet", "no hay");
+                        }
 
                         break;
 
                     case 2:
-                        //Se crea una nueva variable de tipo Locale
-                        Locale locale3 = new Locale("fr");
 
-                        //Se le asigna valor
-                        Locale.setDefault(locale3);
+                        if (isNetworkAvailable() == true) {
+                            sem1.setImageResource(R.drawable.rojoapagado);
+                            sem2.setImageResource(R.drawable.amarilloprendido);
+                            sem3.setImageResource(R.drawable.verdeapagado);
+                            libres = "amarillo";
+                            new CreateUser().execute();
 
-                        //Se crea una variable de configuracion
-                        Configuration mConfig3 = new Configuration();
-
-                        //Se le asigna valor a la variable
-                        mConfig3.locale = locale3;
-
-                        //Se obtiene el contexto, sus recursos y se actualiza su configuracion con los parametros
-                        getBaseContext().getResources().updateConfiguration(mConfig3,
-                                getBaseContext().getResources().getDisplayMetrics());
+                            //Si no existe conexion a internet
+                        } else {
+                            Toast.makeText(MainActivity.this, "No hay coneccion a internet", Toast.LENGTH_LONG).show();
+                            Log.d("internet", "no hay");
+                        }
 
                         break;
 
+                    case 3:
+
+                        if (isNetworkAvailable() == true) {
+                            sem1.setImageResource(R.drawable.rojoapagado);
+                            sem2.setImageResource(R.drawable.amarilloapagado);
+                            sem3.setImageResource(R.drawable.verdeprendido);
+                            libres = "verde";
+                            new CreateUser().execute();
+
+                            //Si no existe conexion a internet
+                        } else {
+                            Toast.makeText(MainActivity.this, "No hay coneccion a internet", Toast.LENGTH_LONG).show();
+                            Log.d("internet", "no hay");
+                        }
+
+
+
+                        break;
+
+                    case 4:
+                        if(isNetworkAvailable()==true){
+                            sem4.setImageResource(R.drawable.rojoprendido);
+                            sem5.setImageResource(R.drawable.amarilloapagado);
+                            sem6.setImageResource(R.drawable.verdeapagado);
+                            libres2="rojo";
+                            new CreateUser2().execute();
+
+                            //Si no existe conexion a internet
+                        }else{
+                            Toast.makeText(MainActivity.this, "No hay coneccion a internet", Toast.LENGTH_LONG).show();
+                            Log.d("internet", "no hay");
+                        }
+
+
+
+                        break;
+
+                    case 5:
+                        if(isNetworkAvailable()==true){
+                            sem4.setImageResource(R.drawable.rojoapagado);
+                            sem5.setImageResource(R.drawable.amarilloprendido);
+                            sem6.setImageResource(R.drawable.verdeapagado);
+                            libres2="amarillo";
+                            new CreateUser2().execute();
+
+                            //Si no existe conexion a internet
+                        }else{
+                            Toast.makeText(MainActivity.this, "No hay coneccion a internet", Toast.LENGTH_LONG).show();
+                            Log.d("internet", "no hay");
+                        }
+
+
+
+                        break;
+
+                    case 6:
+
+                        if(isNetworkAvailable()==true){
+                            sem4.setImageResource(R.drawable.rojoapagado);
+                            sem5.setImageResource(R.drawable.amarilloapagado);
+                            sem6.setImageResource(R.drawable.verdeprendido);
+                            libres2="verde";
+                            new CreateUser2().execute();
+
+                            //Si no existe conexion a internet
+                        }else{
+                            Toast.makeText(MainActivity.this, "No hay coneccion a internet", Toast.LENGTH_LONG).show();
+                            Log.d("internet", "no hay");
+                        }
+
+
+
+                        break;
+
+                    case 7:
+
+                        if(isNetworkAvailable()==true){
+                            sem7.setImageResource(R.drawable.rojoprendido);
+                            sem8.setImageResource(R.drawable.amarilloapagado);
+                            sem9.setImageResource(R.drawable.verdeapagado);
+                            libres3="rojo";
+                            new CreateUser3().execute();
+
+                            //Si no existe conexion a internet
+                        }else{
+                            Toast.makeText(MainActivity.this, "No hay coneccion a internet", Toast.LENGTH_LONG).show();
+                            Log.d("internet", "no hay");
+                        }
+
+
+
+                        break;
+
+                    case 8:
+
+                        if(isNetworkAvailable()==true){
+                            sem7.setImageResource(R.drawable.rojoapagado);
+                            sem8.setImageResource(R.drawable.amarilloprendido);
+                            sem9.setImageResource(R.drawable.verdeapagado);
+                            libres3="amarillo";
+                            new CreateUser3().execute();
+
+                            //Si no existe conexion a internet
+                        }else{
+                            Toast.makeText(MainActivity.this, "No hay coneccion a internet", Toast.LENGTH_LONG).show();
+                            Log.d("internet", "no hay");
+                        }
+
+
+
+                        break;
+
+                    case 9:
+
+
+
+
+                        if(isNetworkAvailable()==true){
+                            sem7.setImageResource(R.drawable.rojoapagado);
+                            sem8.setImageResource(R.drawable.amarilloapagado);
+                            sem9.setImageResource(R.drawable.verdeprendido);
+                            libres3="verde";
+                            new CreateUser3().execute();
+
+                            //Si no existe conexion a internet
+                        }else{
+                            Toast.makeText(MainActivity.this, "No hay coneccion a internet", Toast.LENGTH_LONG).show();
+                            Log.d("internet", "no hay");
+                        }
+
+
+
+                        break;
+
+
                 }
-
-
-
-
-                //Empieza el intent
-                startActivity(i);
-
-                //Termina la actividad actual
-                finish();
-
-
-
-            }else{
-                //Inicia el proceso de acceder al app
-                acceder();
             }
-
-
-
-
-
-
-
-        }
-
-
-
-
-
+        });
 
 
     }
+
     private boolean isNetworkAvailable() {
-        //Verifica la conexion a internet
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        //Obtiene verdadero o falso segun la verificaion de conexion a internet
+
+        ConnectivityManager cm = (ConnectivityManager) MainActivity.this.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = cm.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
