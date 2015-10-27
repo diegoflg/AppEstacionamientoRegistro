@@ -4,22 +4,16 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -32,7 +26,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,29 +48,37 @@ public class MainActivity extends ActionBarActivity {
 
     // JSON parser class
     JSONParser jsonParser = new JSONParser();
+    /*CADENAS DE TEXTO PRIVADAS ESTATICAS FINALES CUYOS VALORES SON LAS URLs DE LOS PHP PARA REGISTRAR LOS DATOS*/
     private static final String REGISTER_URL = "http://www.estacionamientoesan.site88.net/cas/register.php";
     private static final String REGISTER_URL2 = "http://www.estacionamientoesan.site88.net/cas/register2.php";
     private static final String REGISTER_URL3 = "http://www.estacionamientoesan.site88.net/cas/register3.php";
+    //Cadenas de texto privadas cuyos valores son los textos obtenidos para resultados satisfactorios
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
-
+    //Cadena de texto cuyo valor es la URL del php para obtener los datos
     private static String url_all_empresas = "http://www.estacionamientoesan.site88.net/esconnect/get_all_empresas.php";
+    //Cadenas de texto privadas cuyos valores son los nombres de los campos en la base de datos
     private static final String TAG_PRODUCTS = "users";
     private static final String TAG_NOMBRE = "username";
     private static final String TAG_NOMBRE2 = "username2";
     private static final String TAG_NOMBRE3 = "username3";
+    //Cadenas privadas de texto cuyos valores iniciales son waa
     private String estado="waa";
     private String estado2="waa";
     private String estado3="waa";
+    //Nuevo array JSON cuyo valor inicial es nulo
     JSONArray products = null;
+    //Nueva variable JSONParser(clase)
     JSONParser jParser = new JSONParser();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Se le asigna el layout que se visualizara con la actividad
         setContentView(R.layout.lay_registroesta);
 
+        //Se le da valor a la vista imagen con el id del layout
         sem1=(ImageView)findViewById(R.id.sema1);
 
         //Semaforo amarillo
@@ -220,10 +221,15 @@ public class MainActivity extends ActionBarActivity {
 
 
             super.onPreExecute();
+            //Se le da valor a la variable con un nuevo dialogo de progreso en esta actividad
             pDialog = new ProgressDialog(MainActivity.this);
+            //Se le da el mensaje a mostrar
             pDialog.setMessage("Creating User...");
+            //Se le da falso a su indeterminado
             pDialog.setIndeterminate(false);
+            //Se le permite ser cancelado
             pDialog.setCancelable(true);
+            //Se muiestra el dialogo de progreso
             pDialog.show();
 
         }
@@ -292,10 +298,15 @@ public class MainActivity extends ActionBarActivity {
 
 
             super.onPreExecute();
+            //Se da valor a la variable con un nuevo dialogo de progreso en la actividad
             pDialog = new ProgressDialog(MainActivity.this);
+            //Se le asigna el mensaje a mostrar
             pDialog.setMessage("Creating User...");
+            //Se le da falso al indeterminado
             pDialog.setIndeterminate(false);
+            //Se permite cancelar
             pDialog.setCancelable(true);
+            //Se muestra el dialogo de progreso
             pDialog.show();
 
         }
@@ -347,6 +358,7 @@ public class MainActivity extends ActionBarActivity {
             // dismiss the dialog once product deleted
             pDialog.dismiss();
             if (file_url != null){
+                //Se muestra un mensaje en pantalla durante 3.5 segundos
                 Toast.makeText(MainActivity.this, file_url, Toast.LENGTH_LONG).show();
             }
 
@@ -365,10 +377,15 @@ public class MainActivity extends ActionBarActivity {
 
 
             super.onPreExecute();
+            //Se da valor al dialogo de progreso con uno nuevo en la actividad
             pDialog = new ProgressDialog(MainActivity.this);
+            //Se le asigna el mensaje a mostrar
             pDialog.setMessage("Creating User...");
+            //Se le da valor falso indeterminado
             pDialog.setIndeterminate(false);
+            //Se da valor verdadero al cancelable
             pDialog.setCancelable(true);
+            //Se muestra el dialogo de progreso
             pDialog.show();
 
         }
@@ -420,6 +437,7 @@ public class MainActivity extends ActionBarActivity {
             // dismiss the dialog once product deleted
             pDialog.dismiss();
             if (file_url != null){
+                //Se muestra un mensaje en pantalla durante 3.5 segundos
                 Toast.makeText(MainActivity.this, file_url, Toast.LENGTH_LONG).show();
             }
 
@@ -429,25 +447,30 @@ public class MainActivity extends ActionBarActivity {
     }
 
 
-
+    //Clase que ocurre en segundo plano que carga los datos de la base a la app
     class LoadAllProducts extends AsyncTask<String, String, String> {
-
-        /**
-         * Antes de empezar el background thread Show Progress Dialog
-         * */
+        //Antes de ejecutar
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            //Se da como valor a la variable un nuevo dialogo de progreso en la actividad
             pDialog = new ProgressDialog(MainActivity.this);
+            //Se le asigna el mensaje a mostrar
             pDialog.setMessage("Creating User...");
+            //Se le da valor falso
             pDialog.setIndeterminate(false);
+            //Se le da valor cancelable verdadero
             pDialog.setCancelable(true);
+            //Se muestra el dialogo de progreso
             pDialog.show();
 
         }
 
         protected String doInBackground(String... args) {
+            //Segundo plano
+            //Se crea una nueva lista
             List params = new ArrayList();
+            //Se crea una nueva variable para obtener los datos del php
             JSONObject json = jParser.makeHttpRequest(url_all_empresas, "GET", params);
             try {
                 int success = json.getInt(TAG_SUCCESS);
@@ -539,30 +562,43 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-
+    //Metodo que permite mostar un PopUp
     private void showPopup(final Activity context, final int opc) {
+        //Creacion de nueva variable de medida
         DisplayMetrics displaymetrics = new DisplayMetrics();
+        //Se obtiene datos de medida de pantalla del celular
         MainActivity.this.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        //Se crea un entero y se le da valor con el alto de la pantalla en pixeles
         int height = displaymetrics.heightPixels;
+        //Se crea un entero y se le da valor con el ancho de la pantalla en pixeles
         double width = displaymetrics.widthPixels;
 
         Log.v("tamano",String.valueOf(height));
         Log.v("tamano",String.valueOf(width));
 
+        //Se crean variables de numeros reales que se multiplican por otros para encajar bien el popup
         double popupHeight = height*0.52;
         double popupWidth = width*0.625;
 
 
+        //Se le da el layout respectivo
         LinearLayout viewGroup = (LinearLayout) context.findViewById(R.id.popup3);
+        //Se infla el el layout
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        //Se da valor al view con los datos anteriores
         View layout = layoutInflater.inflate(R.layout.popup3, viewGroup);
 
         // Creating the PopupWindow
         final PopupWindow popup = new PopupWindow(context);
+        //Se le da la vista de contendio al popup
         popup.setContentView(layout);
+        //Se le asigna un ancho al popup
         popup.setWidth((int) Math.round(popupHeight));
+        //Se le asigna el alto al popup
         popup.setHeight((int) Math.round(popupWidth));
+        //Se enfoca el popup
         popup.setFocusable(true);
+        //No se permite dar clic fuera del popup
         popup.setOutsideTouchable(false);
 
         // Displaying the popup at the specified location, + offsets.
@@ -576,66 +612,70 @@ public class MainActivity extends ActionBarActivity {
         // Getting a reference to Close button, and close the popup when clicked.
         Button close = (Button) layout.findViewById(R.id.call3);
         Button call = (Button) layout.findViewById(R.id.close3);
+        //Se crea una variable de tipo vista de imagen y se le da el valor del id respectivo del layout
         final ImageView popim=(ImageView)layout.findViewById(R.id.pop3im);
+        //Se les asigna el tipo de fuente a los textos de los botones
         call.setTypeface(TPP);
         close.setTypeface(TPP);
 
-
+        //Se crea una variable de cuadro de texto final cuyo valor es el id del mismo en el layout respectivo
         final TextView tv1 = (TextView) layout.findViewById(R.id.pop3tv1);
+        //Se le asigna el tipo de fuente al cuadro de texto
         tv1.setTypeface(TPP);
 
 
-
+        //Seguns sea la opcion escogida del color de semaforo
         switch(opc) {
+            //Se mostrara en el cuadro de texto el texto entre comillas segun el caso
+            //Se cambia la imagen segun el caso
             case 1:
-                tv1.setText("Esta seguro que desea cambiar el estado del estacionamiento de ESAN a rojo?");
+                tv1.setText("¿Está seguro que desea cambiar el estado del estacionamiento de ESAN a rojo?");
                 popim.setImageResource(R.drawable.rojoprendido);
-
                 break;
 
             case 2:
-                tv1.setText("Esta seguro que desea cambiar el estado del estacionamiento de ESAN a amarillo?");
+                tv1.setText("¿Está seguro que desea cambiar el estado del estacionamiento de ESAN a amarillo?");
                 popim.setImageResource(R.drawable.amarilloprendido);
 
                 break;
 
             case 3:
-                tv1.setText("Esta seguro que desea cambiar el estado del estacionamiento de ESAN a verde?");
+                tv1.setText("¿Está seguro que desea cambiar el estado del estacionamiento de ESAN a verde?");
                 popim.setImageResource(R.drawable.verdeprendido);
 
                 break;
 
             case 4:
-                tv1.setText("Esta seguro que desea cambiar el estado del estacionamiento de Alonso de la Molina a rojo?");
+                tv1.setText("¿Está seguro que desea cambiar el estado del estacionamiento de Alonso de la Molina a rojo?");
                 popim.setImageResource(R.drawable.rojoprendido);
 
                 break;
 
             case 5:
-                tv1.setText("Esta seguro que desea cambiar el estado del estacionamiento de Alonso de la Molina a amarillo?");
+                tv1.setText("¿Está seguro que desea cambiar el estado del estacionamiento de Alonso de la Molina a amarillo?");
                 popim.setImageResource(R.drawable.amarilloprendido);
 
                 break;
 
             case 6:
-                tv1.setText("Esta seguro que desea cambiar el estado del estacionamiento de Alonso de la Molina a verde?");
+                tv1.setText("¿Está seguro que desea cambiar el estado del estacionamiento de Alonso de la Molina a verde?");
                 popim.setImageResource(R.drawable.verdeprendido);
                 break;
 
             case 7:
-                tv1.setText("Esta seguro que desea cambiar el estado del estacionamiento de El Polo a rojo?");
+                tv1.setText("¿Está seguro que desea cambiar el estado del estacionamiento de El Polo a rojo?");
                 popim.setImageResource(R.drawable.rojoprendido);
 
                 break;
 
             case 8:
-                tv1.setText("Esta seguro que desea cambiar el estado del estacionamiento de El Polo a amarillo?");
+                tv1.setText("¿Está seguro que desea cambiar el estado del estacionamiento de El Polo a amarillo?");
                 popim.setImageResource(R.drawable.amarilloprendido);
 
                 break;
 
             case 9:
-                tv1.setText("Esta seguro que desea cambiar el estado del estacionamiento de El Polo a verde?");
+                tv1.setText("¿Está seguro que desea cambiar el estado del estacionamiento de El Polo a verde?");
                 popim.setImageResource(R.drawable.verdeprendido);
 
                 break;
@@ -644,21 +684,27 @@ public class MainActivity extends ActionBarActivity {
 
 
         close.setOnClickListener(new View.OnClickListener() {
+            //Cuando se da click al boton Cerrar
             @Override
             public void onClick(View v) {
+                //Se cierra el pop up
                 popup.dismiss();
             }
         });
 
         call.setOnClickListener(new View.OnClickListener() {
+            //Cuando se ca click al boton aceptar
             @Override
             public void onClick(View v) {
+                //Se cierra el pop up
                 popup.dismiss();
 
 
                 switch(opc) {
+                    //Se verifica la conexion a internet en todos los casos
+                    //En caso de ser verdadera la conexion, se cambian las imagenes/color de semaforos
+                    //Caso contrario muestra un mensaje de No hay conexion
                     case 1:
-
                         if (isNetworkAvailable() == true) {
                             sem1.setImageResource(R.drawable.rojoprendido);//Se activa la imagen del rojo predido
                             sem2.setImageResource(R.drawable.amarilloapagado);//Se apaga la luz amarilla
