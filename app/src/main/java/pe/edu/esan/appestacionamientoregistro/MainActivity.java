@@ -629,53 +629,53 @@ public class MainActivity extends ActionBarActivity {
             //Se mostrara en el cuadro de texto el texto entre comillas segun el caso
             //Se cambia la imagen segun el caso
             case 1:
-                tv1.setText("¿Está seguro que desea cambiar el estado del estacionamiento de ESAN a rojo?");
+                tv1.setText("Â¿EstÃ¡ seguro que desea cambiar el estado del estacionamiento de ESAN a rojo?");
                 popim.setImageResource(R.drawable.rojoprendido);
                 break;
 
             case 2:
-                tv1.setText("¿Está seguro que desea cambiar el estado del estacionamiento de ESAN a amarillo?");
+                tv1.setText("Â¿EstÃ¡ seguro que desea cambiar el estado del estacionamiento de ESAN a amarillo?");
                 popim.setImageResource(R.drawable.amarilloprendido);
 
                 break;
 
             case 3:
-                tv1.setText("¿Está seguro que desea cambiar el estado del estacionamiento de ESAN a verde?");
+                tv1.setText("Â¿EstÃ¡ seguro que desea cambiar el estado del estacionamiento de ESAN a verde?");
                 popim.setImageResource(R.drawable.verdeprendido);
 
                 break;
 
             case 4:
-                tv1.setText("¿Está seguro que desea cambiar el estado del estacionamiento de Alonso de la Molina a rojo?");
+                tv1.setText("Â¿Es seguro que desea cambiar el estado del estacionamiento de Alonso de la Molina a rojo?");
                 popim.setImageResource(R.drawable.rojoprendido);
 
                 break;
 
             case 5:
-                tv1.setText("¿Está seguro que desea cambiar el estado del estacionamiento de Alonso de la Molina a amarillo?");
+                tv1.setText("Â¿EstÃ¡ seguro que desea cambiar el estado del estacionamiento de Alonso de la Molina a amarillo?");
                 popim.setImageResource(R.drawable.amarilloprendido);
 
                 break;
 
             case 6:
-                tv1.setText("¿Está seguro que desea cambiar el estado del estacionamiento de Alonso de la Molina a verde?");
+                tv1.setText("Â¿EstÃ¡ seguro que desea cambiar el estado del estacionamiento de Alonso de la Molina a verde?");
                 popim.setImageResource(R.drawable.verdeprendido);
                 break;
 
             case 7:
-                tv1.setText("¿Está seguro que desea cambiar el estado del estacionamiento de El Polo a rojo?");
+                tv1.setText("Â¿EstÃ¡ seguro que desea cambiar el estado del estacionamiento de El Polo a rojo?");
                 popim.setImageResource(R.drawable.rojoprendido);
 
                 break;
 
             case 8:
-                tv1.setText("¿Está seguro que desea cambiar el estado del estacionamiento de El Polo a amarillo?");
+                tv1.setText("Â¿EstÃ¡ seguro que desea cambiar el estado del estacionamiento de El Polo a amarillo?");
                 popim.setImageResource(R.drawable.amarilloprendido);
 
                 break;
 
             case 9:
-                tv1.setText("¿Está seguro que desea cambiar el estado del estacionamiento de El Polo a verde?");
+                tv1.setText("Â¿EstÃ¡ seguro que desea cambiar el estado del estacionamiento de El Polo a verde?");
                 popim.setImageResource(R.drawable.verdeprendido);
 
                 break;
