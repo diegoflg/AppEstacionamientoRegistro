@@ -2,6 +2,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="pe.edu.esan.estacionamientoesan.MainActivity2Activity">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
+    <item android:id="@+id/action_settings" android:title="@string/abc_action_bar_home_description"
         android:orderInCategory="100" app:showAsAction="never" />
 </menu>
