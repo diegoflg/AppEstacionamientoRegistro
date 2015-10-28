@@ -49,14 +49,14 @@ public class MainActivity extends ActionBarActivity {
     // JSON parser class
     JSONParser jsonParser = new JSONParser();
     /*CADENAS DE TEXTO PRIVADAS ESTATICAS FINALES CUYOS VALORES SON LAS URLs DE LOS PHP PARA REGISTRAR LOS DATOS*/
-    private static final String REGISTER_URL = "http://www.estacionamientoesan.site88.net/cas/register.php";
-    private static final String REGISTER_URL2 = "http://www.estacionamientoesan.site88.net/cas/register2.php";
-    private static final String REGISTER_URL3 = "http://www.estacionamientoesan.site88.net/cas/register3.php";
+    private static final String REGISTER_URL = "http://estacionamientoesan.pe.hu/cas/register.php";
+    private static final String REGISTER_URL2 = "http://estacionamientoesan.pe.hu/cas/register2.php";
+    private static final String REGISTER_URL3 = "http://estacionamientoesan.pe.hu/cas/register3.php";
     //Cadenas de texto privadas cuyos valores son los textos obtenidos para resultados satisfactorios
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
     //Cadena de texto cuyo valor es la URL del php para obtener los datos
-    private static String url_all_empresas = "http://www.estacionamientoesan.site88.net/esconnect/get_all_empresas.php";
+    private static String url_all_empresas = "http://estacionamientoesan.pe.hu/esconnect/get_all_empresas.php";
     //Cadenas de texto privadas cuyos valores son los nombres de los campos en la base de datos
     private static final String TAG_PRODUCTS = "users";
     private static final String TAG_NOMBRE = "username";
