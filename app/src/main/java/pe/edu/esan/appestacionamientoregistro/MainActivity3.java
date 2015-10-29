@@ -31,7 +31,7 @@ import java.util.List;
 
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity3 extends ActionBarActivity {
 
     //Declaracion de variables
 
@@ -49,14 +49,14 @@ public class MainActivity extends ActionBarActivity {
     // JSON parser class
     JSONParser jsonParser = new JSONParser();
     /*CADENAS DE TEXTO PRIVADAS ESTATICAS FINALES CUYOS VALORES SON LAS URLs DE LOS PHP PARA REGISTRAR LOS DATOS*/
-    private static final String REGISTER_URL = "http://estacionamientoesan.pe.hu/cas/register.php";
-    private static final String REGISTER_URL2 = "http://estacionamientoesan.pe.hu/cas/register2.php";
-    private static final String REGISTER_URL3 = "http://estacionamientoesan.pe.hu/cas/register3.php";
+    private static final String REGISTER_URL = "http://estacionamientos.esan.edu.pe/cas/register.php";
+    private static final String REGISTER_URL2 = "http://estacionamientos.esan.edu.pe/cas/register2.php";
+    private static final String REGISTER_URL3 = "http://estacionamientos.esan.edu.pe/cas/register3.php";
     //Cadenas de texto privadas cuyos valores son los textos obtenidos para resultados satisfactorios
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
     //Cadena de texto cuyo valor es la URL del php para obtener los datos
-    private static String url_all_empresas = "http://estacionamientoesan.pe.hu/esconnect/get_all_empresas.php";
+    private static String url_all_empresas = "http://estacionamientos.esan.edu.pe/esconnect/get_all_empresas.php";
     //Cadenas de texto privadas cuyos valores son los nombres de los campos en la base de datos
     private static final String TAG_PRODUCTS = "users";
     private static final String TAG_NOMBRE = "username";
@@ -106,7 +106,7 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
-                showPopup(MainActivity.this,1);
+                showPopup(MainActivity3.this,1);
 
             }
         });
@@ -115,7 +115,7 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
-                showPopup(MainActivity.this,2);
+                showPopup(MainActivity3.this,2);
                 //Cuando el semaforo amarillo es clickeado
                 //Si es que existe conexion a internet
 
@@ -127,7 +127,7 @@ public class MainActivity extends ActionBarActivity {
         sem3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPopup(MainActivity.this,3);
+                showPopup(MainActivity3.this,3);
                 //Cuando el semaforo verde es clickeado
                 //Si es que existe conexion a internet
 
@@ -139,7 +139,7 @@ public class MainActivity extends ActionBarActivity {
         sem4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPopup(MainActivity.this,4);
+                showPopup(MainActivity3.this,4);
                 //Cuando el semaforo verde es clickeado
                 //Si es que existe conexion a internet
 
@@ -151,7 +151,7 @@ public class MainActivity extends ActionBarActivity {
         sem5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPopup(MainActivity.this,5);
+                showPopup(MainActivity3.this,5);
                 //Cuando el semaforo verde es clickeado
                 //Si es que existe conexion a internet
 
@@ -162,7 +162,7 @@ public class MainActivity extends ActionBarActivity {
         sem6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPopup(MainActivity.this,6);
+                showPopup(MainActivity3.this,6);
                 //Cuando el semaforo verde es clickeado
                 //Si es que existe conexion a internet
 
@@ -175,7 +175,7 @@ public class MainActivity extends ActionBarActivity {
         sem7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPopup(MainActivity.this,7);
+                showPopup(MainActivity3.this,7);
                 //Cuando el semaforo verde es clickeado
                 //Si es que existe conexion a internet
 
@@ -187,7 +187,7 @@ public class MainActivity extends ActionBarActivity {
         sem8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPopup(MainActivity.this,8);
+                showPopup(MainActivity3.this,8);
                 //Cuando el semaforo verde es clickeado
                 //Si es que existe conexion a internet
 
@@ -199,7 +199,7 @@ public class MainActivity extends ActionBarActivity {
         sem9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPopup(MainActivity.this,9);
+                showPopup(MainActivity3.this,9);
                 //Cuando el semaforo verde es clickeado
                 //Si es que existe conexion a internet
 
@@ -222,7 +222,7 @@ public class MainActivity extends ActionBarActivity {
 
             super.onPreExecute();
             //Se le da valor a la variable con un nuevo dialogo de progreso en esta actividad
-            pDialog = new ProgressDialog(MainActivity.this);
+            pDialog = new ProgressDialog(MainActivity3.this);
             //Se le da el mensaje a mostrar
             pDialog.setMessage("Creating User...");
             //Se le da falso a su indeterminado
@@ -281,7 +281,7 @@ public class MainActivity extends ActionBarActivity {
             // dismiss the dialog once product deleted
             pDialog.dismiss();
             if (file_url != null){
-                Toast.makeText(MainActivity.this, file_url, Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity3.this, file_url, Toast.LENGTH_LONG).show();
             }
 
 
@@ -299,7 +299,7 @@ public class MainActivity extends ActionBarActivity {
 
             super.onPreExecute();
             //Se da valor a la variable con un nuevo dialogo de progreso en la actividad
-            pDialog = new ProgressDialog(MainActivity.this);
+            pDialog = new ProgressDialog(MainActivity3.this);
             //Se le asigna el mensaje a mostrar
             pDialog.setMessage("Creating User...");
             //Se le da falso al indeterminado
@@ -359,7 +359,7 @@ public class MainActivity extends ActionBarActivity {
             pDialog.dismiss();
             if (file_url != null){
                 //Se muestra un mensaje en pantalla durante 3.5 segundos
-                Toast.makeText(MainActivity.this, file_url, Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity3.this, file_url, Toast.LENGTH_LONG).show();
             }
 
 
@@ -378,7 +378,7 @@ public class MainActivity extends ActionBarActivity {
 
             super.onPreExecute();
             //Se da valor al dialogo de progreso con uno nuevo en la actividad
-            pDialog = new ProgressDialog(MainActivity.this);
+            pDialog = new ProgressDialog(MainActivity3.this);
             //Se le asigna el mensaje a mostrar
             pDialog.setMessage("Creating User...");
             //Se le da valor falso indeterminado
@@ -438,7 +438,7 @@ public class MainActivity extends ActionBarActivity {
             pDialog.dismiss();
             if (file_url != null){
                 //Se muestra un mensaje en pantalla durante 3.5 segundos
-                Toast.makeText(MainActivity.this, file_url, Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity3.this, file_url, Toast.LENGTH_LONG).show();
             }
 
 
@@ -454,7 +454,7 @@ public class MainActivity extends ActionBarActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             //Se da como valor a la variable un nuevo dialogo de progreso en la actividad
-            pDialog = new ProgressDialog(MainActivity.this);
+            pDialog = new ProgressDialog(MainActivity3.this);
             //Se le asigna el mensaje a mostrar
             pDialog.setMessage("Creating User...");
             //Se le da valor falso
@@ -567,7 +567,7 @@ public class MainActivity extends ActionBarActivity {
         //Creacion de nueva variable de medida
         DisplayMetrics displaymetrics = new DisplayMetrics();
         //Se obtiene datos de medida de pantalla del celular
-        MainActivity.this.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        MainActivity3.this.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         //Se crea un entero y se le da valor con el alto de la pantalla en pixeles
         int height = displaymetrics.heightPixels;
         //Se crea un entero y se le da valor con el ancho de la pantalla en pixeles
@@ -606,7 +606,7 @@ public class MainActivity extends ActionBarActivity {
 
         // FUENTE PARA TEXTO EN POPUP Y BOTONES:
         String font_pathPP = "font/HelveticaNeue-Light.ttf"; //ruta de la fuente
-        Typeface TPP = Typeface.createFromAsset(MainActivity.this.getAssets(),font_pathPP);//llamanos a la CLASS TYPEFACE y la definimos
+        Typeface TPP = Typeface.createFromAsset(MainActivity3.this.getAssets(),font_pathPP);//llamanos a la CLASS TYPEFACE y la definimos
         // con un CREATE desde ASSETS con la ruta STRING
 
         // Getting a reference to Close button, and close the popup when clicked.
@@ -715,7 +715,7 @@ public class MainActivity extends ActionBarActivity {
 
                             //Si no existe conexion a internet
                         } else {
-                            Toast.makeText(MainActivity.this, "No hay conexio,n a internet", Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity3.this, "No hay conexio,n a internet", Toast.LENGTH_LONG).show();
                             Log.d("internet", "no hay");
                         }
 
@@ -732,7 +732,7 @@ public class MainActivity extends ActionBarActivity {
 
                             //Si no existe conexion a internet
                         } else {
-                            Toast.makeText(MainActivity.this, "No hay coneccion a internet", Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity3.this, "No hay coneccion a internet", Toast.LENGTH_LONG).show();
                             Log.d("internet", "no hay");
                         }
 
@@ -749,7 +749,7 @@ public class MainActivity extends ActionBarActivity {
 
                             //Si no existe conexion a internet
                         } else {
-                            Toast.makeText(MainActivity.this, "No hay coneccion a internet", Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity3.this, "No hay coneccion a internet", Toast.LENGTH_LONG).show();
                             Log.d("internet", "no hay");
                         }
 
@@ -767,7 +767,7 @@ public class MainActivity extends ActionBarActivity {
 
                             //Si no existe conexion a internet
                         }else{
-                            Toast.makeText(MainActivity.this, "No hay coneccion a internet", Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity3.this, "No hay coneccion a internet", Toast.LENGTH_LONG).show();
                             Log.d("internet", "no hay");
                         }
 
@@ -785,7 +785,7 @@ public class MainActivity extends ActionBarActivity {
 
                             //Si no existe conexion a internet
                         }else{
-                            Toast.makeText(MainActivity.this, "No hay coneccion a internet", Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity3.this, "No hay coneccion a internet", Toast.LENGTH_LONG).show();
                             Log.d("internet", "no hay");
                         }
 
@@ -804,7 +804,7 @@ public class MainActivity extends ActionBarActivity {
 
                             //Si no existe conexion a internet
                         }else{
-                            Toast.makeText(MainActivity.this, "No hay coneccion a internet", Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity3.this, "No hay coneccion a internet", Toast.LENGTH_LONG).show();
                             Log.d("internet", "no hay");
                         }
 
@@ -823,7 +823,7 @@ public class MainActivity extends ActionBarActivity {
 
                             //Si no existe conexion a internet
                         }else{
-                            Toast.makeText(MainActivity.this, "No hay coneccion a internet", Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity3.this, "No hay coneccion a internet", Toast.LENGTH_LONG).show();
                             Log.d("internet", "no hay");
                         }
 
@@ -842,7 +842,7 @@ public class MainActivity extends ActionBarActivity {
 
                             //Si no existe conexion a internet
                         }else{
-                            Toast.makeText(MainActivity.this, "No hay coneccion a internet", Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity3.this, "No hay coneccion a internet", Toast.LENGTH_LONG).show();
                             Log.d("internet", "no hay");
                         }
 
@@ -864,7 +864,7 @@ public class MainActivity extends ActionBarActivity {
 
                             //Si no existe conexion a internet
                         }else{
-                            Toast.makeText(MainActivity.this, "No hay coneccion a internet", Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity3.this, "No hay coneccion a internet", Toast.LENGTH_LONG).show();
                             Log.d("internet", "no hay");
                         }
 
@@ -883,7 +883,7 @@ public class MainActivity extends ActionBarActivity {
     private boolean isNetworkAvailable() {
         //Obtiene verdadero o falso segun la verificaion de conexion a internet
 
-        ConnectivityManager cm = (ConnectivityManager) MainActivity.this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager cm = (ConnectivityManager) MainActivity3.this.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = cm.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }

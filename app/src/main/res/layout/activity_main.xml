@@ -1,0 +1,85 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/ffond2">
+
+    <ImageView
+        android:id="@+id/iv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo"
+        android:layout_centerHorizontal="true"/>
+
+    <EditText
+        android:id="@+id/et1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/hintUsuario"
+        android:layout_below="@+id/iv1"
+        android:layout_centerHorizontal="true"
+        android:width="250dp"
+        android:paddingLeft="10dip"
+        android:background="@drawable/edittext"
+        android:inputType="textNoSuggestions"/>
+
+    <EditText
+        android:id="@+id/et2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/hintPassword"
+        android:layout_below="@+id/et1"
+        android:layout_centerHorizontal="true"
+        android:width="250dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/edittext"
+        android:inputType="textPassword"
+        android:paddingLeft="10dip"/>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cb1"
+        android:layout_marginTop="17dp"
+        android:layout_below="@+id/et2"
+        android:layout_alignLeft="@+id/et2"
+        android:layout_alignStart="@+id/et2"
+        android:layout_marginLeft="-8dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Recuerdame"
+        android:textColor="#000000"
+        android:id="@+id/textView12"
+        android:layout_alignBaseline="@+id/cb1"
+        android:layout_alignBottom="@+id/cb1"
+        android:layout_toRightOf="@+id/cb1"
+        android:layout_toEndOf="@+id/cb1" />
+
+
+
+
+    <Button
+        android:id="@+id/button"
+        android:onClick="logstart"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:text="@string/btAcceder"
+        android:background="@drawable/mybutton"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/textView12"
+        android:layout_marginTop="30dp"
+
+        android:layout_marginRight="15dp"
+        android:layout_marginEnd="15dp"
+        />
+
+
+
+</RelativeLayout>
+
+
+

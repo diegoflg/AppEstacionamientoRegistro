@@ -22,4 +22,8 @@
     <string name="ess">ESAN</string>
     <string name="alooo">Alonso de la Molina</string>
     <string name="polo">El Polo</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 </resources>
