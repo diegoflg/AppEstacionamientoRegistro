@@ -240,36 +240,49 @@ public class MainActivity3 extends ActionBarActivity {
 
             // TODO Auto-generated method stub
             // Check for success tag
-            int success;
-            String username = libres;
-            try {
-                // Building Parameters
-                List params = new ArrayList();
-                params.add(new BasicNameValuePair("username", username));
 
 
-                Log.d("request!", "starting");
+            int compro=0;
 
-                //Posting user data to script
-                JSONObject json = jsonParser.makeHttpRequest(
-                        REGISTER_URL, "POST", params);
+            while(compro==0){
 
-                // full json response
-                Log.d("Registering attempt", json.toString());
+                int success;
+                String username = libres;
+                try {
+                    // Building Parameters
+                    List params = new ArrayList();
+                    params.add(new BasicNameValuePair("username", username));
 
-                // json success element
-                success = json.getInt(TAG_SUCCESS);
-                if (success == 1) {
-                    Log.d("User Created!", json.toString());
-                    return json.getString(TAG_MESSAGE);
-                }else{
-                    Log.d("Registering Failure!", json.getString(TAG_MESSAGE));
-                    return json.getString(TAG_MESSAGE);
 
+                    Log.d("request!", "starting");
+
+                    //Posting user data to script
+                    JSONObject json = jsonParser.makeHttpRequest(
+                            REGISTER_URL, "POST", params);
+
+                    // full json response
+                    Log.d("Registering attempt", json.toString());
+
+                    // json success element
+                    success = json.getInt(TAG_SUCCESS);
+                    if (success == 1) {
+                        Log.d("User Created!", json.toString());
+                        compro=compro+1;
+                        return json.getString(TAG_MESSAGE);
+
+                    }else{
+                        Log.d("Registering Failure!", json.getString(TAG_MESSAGE));
+                        return json.getString(TAG_MESSAGE);
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
+
+
+
             }
+
 
             return null;
 
@@ -315,38 +328,46 @@ public class MainActivity3 extends ActionBarActivity {
         protected String doInBackground(String... args) {
             //Metodo que se hace en segundo plano
 
-            // TODO Auto-generated method stub
-            // Check for success tag
-            int success;
-            String username2 = libres2;
-            try {
-                // Building Parameters
-                List params = new ArrayList();
-                params.add(new BasicNameValuePair("username2", username2));
+            int compro=0;
+
+            while(compro==0){
 
 
-                Log.d("request!", "starting");
+                int success;
+                String username2 = libres2;
+                try {
+                    // Building Parameters
+                    List params = new ArrayList();
+                    params.add(new BasicNameValuePair("username2", username2));
 
-                //Posting user data to script
-                JSONObject json = jsonParser.makeHttpRequest(
-                        REGISTER_URL2, "POST", params);
 
-                // full json response
-                Log.d("Registering attempt", json.toString());
+                    Log.d("request!", "starting");
 
-                // json success element
-                success = json.getInt(TAG_SUCCESS);
-                if (success == 1) {
-                    Log.d("User Created!", json.toString());
-                    return json.getString(TAG_MESSAGE);
-                }else{
-                    Log.d("Registering Failure!", json.getString(TAG_MESSAGE));
-                    return json.getString(TAG_MESSAGE);
+                    //Posting user data to script
+                    JSONObject json = jsonParser.makeHttpRequest(
+                            REGISTER_URL2, "POST", params);
 
+                    // full json response
+                    Log.d("Registering attempt", json.toString());
+
+                    // json success element
+                    success = json.getInt(TAG_SUCCESS);
+                    if (success == 1) {
+                        Log.d("User Created!", json.toString());
+                        compro=compro+1;
+                        return json.getString(TAG_MESSAGE);
+                    }else{
+                        Log.d("Registering Failure!", json.getString(TAG_MESSAGE));
+                        return json.getString(TAG_MESSAGE);
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
+
             }
+
+
 
             return null;
 
@@ -396,36 +417,46 @@ public class MainActivity3 extends ActionBarActivity {
 
             // TODO Auto-generated method stub
             // Check for success tag
-            int success;
-            String username3 = libres3;
-            try {
-                // Building Parameters
-                List params = new ArrayList();
-                params.add(new BasicNameValuePair("username3", username3));
+            int compro=0;
+
+            while(compro==0){
 
 
-                Log.d("request!", "starting");
+                int success;
+                String username3 = libres3;
+                try {
+                    // Building Parameters
+                    List params = new ArrayList();
+                    params.add(new BasicNameValuePair("username3", username3));
 
-                //Posting user data to script
-                JSONObject json = jsonParser.makeHttpRequest(
-                        REGISTER_URL3, "POST", params);
 
-                // full json response
-                Log.d("Registering attempt", json.toString());
+                    Log.d("request!", "starting");
 
-                // json success element
-                success = json.getInt(TAG_SUCCESS);
-                if (success == 1) {
-                    Log.d("User Created!", json.toString());
-                    return json.getString(TAG_MESSAGE);
-                }else{
-                    Log.d("Registering Failure!", json.getString(TAG_MESSAGE));
-                    return json.getString(TAG_MESSAGE);
+                    //Posting user data to script
+                    JSONObject json = jsonParser.makeHttpRequest(
+                            REGISTER_URL3, "POST", params);
 
+                    // full json response
+                    Log.d("Registering attempt", json.toString());
+
+                    // json success element
+                    success = json.getInt(TAG_SUCCESS);
+                    if (success == 1) {
+                        Log.d("User Created!", json.toString());
+                        compro=compro+1;
+                        return json.getString(TAG_MESSAGE);
+                    }else{
+                        Log.d("Registering Failure!", json.getString(TAG_MESSAGE));
+                        return json.getString(TAG_MESSAGE);
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
+
+
+
 
             return null;
 
