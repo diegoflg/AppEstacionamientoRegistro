@@ -1,5 +1,6 @@
 package pe.edu.esan.appestacionamientoregistro;
 
+import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.app.Activity;
@@ -25,7 +26,11 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,9 +47,14 @@ public class MainActivity3 extends ActionBarActivity {
     private String libres;
     private String libres2;
     private String libres3;
+    String horatot="";
 
     //Dialogo de progreso de carga
     private ProgressDialog pDialog;
+    private ProgressDialog pDialog2;
+    private ProgressDialog pDialog3;
+    private ProgressDialog pDialog4;
+    private ProgressDialog pDialog5;
 
     // JSON parser class
     JSONParser jsonParser = new JSONParser();
@@ -80,22 +90,27 @@ public class MainActivity3 extends ActionBarActivity {
 
         //Se le da valor a la vista imagen con el id del layout
         sem1=(ImageView)findViewById(R.id.sema1);
-
-        //Semaforo amarillo
         sem2=(ImageView)findViewById(R.id.sema2);
-
-        //Semaforo verde
         sem3=(ImageView)findViewById(R.id.sema3);
-        sem4=(ImageView)findViewById(R.id.sema4);
-        sem5=(ImageView)findViewById(R.id.sema6);
-        sem6=(ImageView)findViewById(R.id.sema5);
-        sem7=(ImageView)findViewById(R.id.sema7);
-        sem8=(ImageView)findViewById(R.id.sema9);
-        sem9=(ImageView)findViewById(R.id.sema8);
+        sem4=(ImageView)findViewById(R.id.sema7);
+        sem5=(ImageView)findViewById(R.id.sema9);
+        sem6=(ImageView)findViewById(R.id.sema8);
+        sem7=(ImageView)findViewById(R.id.sema4);
+        sem8=(ImageView)findViewById(R.id.sema6);
+        sem9=(ImageView)findViewById(R.id.sema5);
+
+        if (isNetworkAvailable() == true){
+            try{
+                new LoadAllProducts().execute();
+
+            }catch (Exception e){
+
+            }// Este metodo busca el estado actual del estacionamiento en la base de datos
 
 
 
-        new LoadAllProducts().execute();// Este metodo busca el estado actual del estacionamiento en la base de datos
+        }
+
 
 
 
@@ -106,7 +121,14 @@ public class MainActivity3 extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
-                showPopup(MainActivity3.this,1);
+                if(horatot.contains("23:2")|| horatot.contains("23:3") || horatot.contains("23:4")|| horatot.contains("23:5")){
+
+                }else{
+                    showPopup(MainActivity3.this, 1);
+
+                }
+
+
 
             }
         });
@@ -115,9 +137,16 @@ public class MainActivity3 extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
-                showPopup(MainActivity3.this,2);
-                //Cuando el semaforo amarillo es clickeado
-                //Si es que existe conexion a internet
+                if(horatot.contains("23:2")|| horatot.contains("23:3") || horatot.contains("23:4")|| horatot.contains("23:5")){
+
+                }else{
+                    showPopup(MainActivity3.this,2);
+                    //Cuando el semaforo amarillo es clickeado
+                    //Si es que existe conexion a internet
+
+
+                }
+
 
 
 
@@ -127,10 +156,15 @@ public class MainActivity3 extends ActionBarActivity {
         sem3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPopup(MainActivity3.this,3);
-                //Cuando el semaforo verde es clickeado
-                //Si es que existe conexion a internet
+                if(horatot.contains("23:2")|| horatot.contains("23:3") || horatot.contains("23:4")|| horatot.contains("23:5")){
 
+                }else{
+                    showPopup(MainActivity3.this,3);
+                    //Cuando el semaforo amarillo es clickeado
+                    //Si es que existe conexion a internet
+
+
+                }
 
 
             }
@@ -139,9 +173,15 @@ public class MainActivity3 extends ActionBarActivity {
         sem4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPopup(MainActivity3.this,4);
-                //Cuando el semaforo verde es clickeado
-                //Si es que existe conexion a internet
+                if(horatot.contains("23:2")|| horatot.contains("23:3") || horatot.contains("23:4")|| horatot.contains("23:5")){
+
+                }else{
+                    showPopup(MainActivity3.this,4);
+                    //Cuando el semaforo amarillo es clickeado
+                    //Si es que existe conexion a internet
+
+
+                }
 
 
 
@@ -151,10 +191,15 @@ public class MainActivity3 extends ActionBarActivity {
         sem5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPopup(MainActivity3.this,5);
-                //Cuando el semaforo verde es clickeado
-                //Si es que existe conexion a internet
+                if(horatot.contains("23:2")|| horatot.contains("23:3") || horatot.contains("23:4")|| horatot.contains("23:5")){
 
+                }else{
+                    showPopup(MainActivity3.this,5);
+                    //Cuando el semaforo amarillo es clickeado
+                    //Si es que existe conexion a internet
+
+
+                }
 
             }
         });
@@ -162,9 +207,15 @@ public class MainActivity3 extends ActionBarActivity {
         sem6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPopup(MainActivity3.this,6);
-                //Cuando el semaforo verde es clickeado
-                //Si es que existe conexion a internet
+                if(horatot.contains("23:2")|| horatot.contains("23:3") || horatot.contains("23:4")|| horatot.contains("23:5")){
+
+                }else{
+                    showPopup(MainActivity3.this,6);
+                    //Cuando el semaforo amarillo es clickeado
+                    //Si es que existe conexion a internet
+
+
+                }
 
 
 
@@ -175,9 +226,15 @@ public class MainActivity3 extends ActionBarActivity {
         sem7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPopup(MainActivity3.this,7);
-                //Cuando el semaforo verde es clickeado
-                //Si es que existe conexion a internet
+                if(horatot.contains("23:2")|| horatot.contains("23:3") || horatot.contains("23:4")|| horatot.contains("23:5")){
+
+                }else{
+                    showPopup(MainActivity3.this,7);
+                    //Cuando el semaforo amarillo es clickeado
+                    //Si es que existe conexion a internet
+
+
+                }
 
 
 
@@ -187,10 +244,15 @@ public class MainActivity3 extends ActionBarActivity {
         sem8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPopup(MainActivity3.this,8);
-                //Cuando el semaforo verde es clickeado
-                //Si es que existe conexion a internet
+                if(horatot.contains("23:2")|| horatot.contains("23:3") || horatot.contains("23:4")|| horatot.contains("23:5")){
 
+                }else{
+                    showPopup(MainActivity3.this,8);
+                    //Cuando el semaforo amarillo es clickeado
+                    //Si es que existe conexion a internet
+
+
+                }
 
 
             }
@@ -199,17 +261,164 @@ public class MainActivity3 extends ActionBarActivity {
         sem9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPopup(MainActivity3.this,9);
-                //Cuando el semaforo verde es clickeado
-                //Si es que existe conexion a internet
+                if(horatot.contains("23:2")|| horatot.contains("23:3") || horatot.contains("23:4")|| horatot.contains("23:5")){
 
+                }else{
+                    showPopup(MainActivity3.this,9);
+                    //Cuando el semaforo amarillo es clickeado
+                    //Si es que existe conexion a internet
+
+
+                }
 
 
             }
         });
+        //Se crea y da valor a un numero para que sea el tiempo del handle en milisegundos
+        final int delay = 30000; //milliseconds
+        //Se crea una variable handle nueva
+        final Handler hT = new Handler();
+
+
+        hT.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                try{
+                    new LoadTIME2().execute();
+
+
+                    Log.v("asd", "apagon");
+                }catch (Exception e){
+
+                }
+
+
+
+                hT.postDelayed(this, delay);
+
+
+            }
+        }, delay);
 
 
     }
+
+    private class LoadTIME2 extends AsyncTask<Void, Void, Void> {
+        //Sacado de: http://www.survivingwithandroid.com/2014/04/parsing-html-in-android-with-jsoup.html
+        //Pagina web real: http://www.timeanddate.com/worldclock/peru/lima
+        //HTML DE WEB: view-source:http://www.timeanddate.com/worldclock/peru/lima
+
+
+
+        //Se crea una cadena de texto cuyo valor es la URL de la pagina web
+        String url = "http://www.timeanddate.com/worldclock/peru/lima";
+        //Se crea una variable de tipo Documento y se le da como valor inicial nulo
+        Document doc = null;
+        //Se crean dos cadenas de texto para la hora y el dia
+        String horac;
+        String diac;
+
+        @Override
+        protected void onPreExecute() {
+            //Metodo antes de ejecutar la accion
+            super.onPreExecute();
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            //Metodo que ocurre en segundo plano
+            // TODO Auto-generated method stub
+
+            //Intenta
+            try {
+                // obtener el documento de la pagina conectandose con el Jsoup
+                //TIEMPO HH:MM
+                doc = Jsoup.connect(url).get();
+                //Se crea un elemento llamado hora cuyo valor sera el dato(hora y minutos) dentro del parametro dado
+                Elements hora = doc.select("span[id=fshrmin]");
+                //Se le da valor a la cadena de texto convirtiendo el dato encontrado a texto
+                horac = hora.text();
+
+                //Se crea un elemento cuyo valor sera el dato (fecha en ingles) dentro del parametro dado
+                Elements dia = doc.select("span[id=ctdat]");
+                //Se le da valor a la cadena de texto convirtiendo el dato encontrado a texto
+                diac = dia.text();
+                horatot=horac;
+                Log.v("asd",horac);
+
+                /*
+                Elements topicList = doc.select("h2.topic");
+                Log.i("TIEMPO", "META: " + metaElem);
+                Log.i("TIEMPO", "TOPICLIST : " + topicList);
+                Elements links = doc.select("a[href]"); // a with href
+                Element masthead = doc.select("div.masthead").first();
+                // div with class=masthead
+                Elements resultLinks = doc.select("h3.r > a"); // direct a after h3
+                Log.i("TIEMPO", "AHREF: " + links);
+                Log.i("TIEMPO", "MASTHEAD: " + masthead);
+                Log.i("TIEMPO", "ResultLinks : " + resultLinks);
+                */
+
+
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                Log.i("TIEMPO", "ERROR");
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            //Metodo que ocurre despues de terminada la accion
+            // TODO Auto-generated method stub
+            super.onPostExecute(result);
+
+
+            //Se verifica que el texto contenga los valores dado en parametros:
+            //(Si contiene Lunes, Martes, Miercoles, Jueves o Viernes)
+
+            try{
+
+                if((diac.contains("Monday") || diac.contains("Tuesday") || diac.contains("Wednesday") || diac.contains("Thursday") || diac.contains("Friday")|| diac.contains("Sunday")|| diac.contains("Saturday"))){
+                    //Si la hora contiene 18, 19, 20, 21, 22 o 23 (se le pone dos puntos para que coja la hora y no lo confunda con los minutos)
+                    if(horac.contains("23:3")|| horac.contains("23:4") || horac.contains("23:5")){
+
+                        Log.v("estados", estado+estado2+estado3);
+
+
+                        if(estado.equals("verde") && estado2.equals("rojo") && estado3.equals("rojo")){
+
+
+                        }else{
+
+                            Log.v("asd","entrogogo");
+                            libres = "verde";
+                            libres2 = "rojo";
+                            libres3 = "rojo";
+                            new CreateUserv2().execute();
+
+
+                        }
+
+
+
+
+                    }else {
+
+
+                    }
+                }
+
+            }catch (Exception e){
+
+            }
+
+        }
+    }
+
 
 
     class CreateUser extends AsyncTask<String, String, String> {//Metodo que guarda el estado en la base de datos
@@ -222,15 +431,15 @@ public class MainActivity3 extends ActionBarActivity {
 
             super.onPreExecute();
             //Se le da valor a la variable con un nuevo dialogo de progreso en esta actividad
-            pDialog = new ProgressDialog(MainActivity3.this);
+            pDialog3 = new ProgressDialog(MainActivity3.this);
             //Se le da el mensaje a mostrar
-            pDialog.setMessage("Creating User...");
+            pDialog3.setMessage("Registrando cambio...");
             //Se le da falso a su indeterminado
-            pDialog.setIndeterminate(false);
+            pDialog3.setIndeterminate(false);
             //Se le permite ser cancelado
-            pDialog.setCancelable(true);
+            pDialog3.setCancelable(false);
             //Se muiestra el dialogo de progreso
-            pDialog.show();
+            pDialog3.show();
 
         }
 
@@ -292,15 +501,116 @@ public class MainActivity3 extends ActionBarActivity {
             //Metodo que se hace terminada la ejecucion de la accion
 
             // dismiss the dialog once product deleted
-            pDialog.dismiss();
+            pDialog3.dismiss();
             if (file_url != null){
                 Toast.makeText(MainActivity3.this, file_url, Toast.LENGTH_LONG).show();
+            }
+
+            try{
+                new LoadAllProducts().execute();
+
+            }catch (Exception e){
+
             }
 
 
 
         }
     }
+
+    class CreateUserv2 extends AsyncTask<String, String, String> {//Metodo que guarda el estado en la base de datos
+
+
+        @Override
+        protected void onPreExecute() {
+            //Metodo antes de ser ejecutada la accion
+
+
+            super.onPreExecute();
+            //Se le da valor a la variable con un nuevo dialogo de progreso en esta actividad
+            pDialog3 = new ProgressDialog(MainActivity3.this);
+            //Se le da el mensaje a mostrar
+            pDialog3.setMessage("Registrando cambio...");
+            //Se le da falso a su indeterminado
+            pDialog3.setIndeterminate(false);
+            //Se le permite ser cancelado
+            pDialog3.setCancelable(false);
+            //Se muiestra el dialogo de progreso
+            pDialog3.show();
+
+        }
+
+        @Override
+        protected String doInBackground(String... args) {
+            //Metodo que se hace en segundo plano
+
+            // TODO Auto-generated method stub
+            // Check for success tag
+
+
+            int compro=0;
+
+            while(compro==0){
+
+                int success;
+                String username = libres;
+                try {
+                    // Building Parameters
+                    List params = new ArrayList();
+                    params.add(new BasicNameValuePair("username", username));
+
+
+                    Log.d("request!", "starting");
+
+                    //Posting user data to script
+                    JSONObject json = jsonParser.makeHttpRequest(
+                            REGISTER_URL, "POST", params);
+
+                    // full json response
+                    Log.d("Registering attempt", json.toString());
+
+                    // json success element
+                    success = json.getInt(TAG_SUCCESS);
+                    if (success == 1) {
+                        Log.d("User Created!", json.toString());
+                        compro=compro+1;
+                        return json.getString(TAG_MESSAGE);
+
+                    }else{
+                        Log.d("Registering Failure!", json.getString(TAG_MESSAGE));
+                        return json.getString(TAG_MESSAGE);
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+
+            }
+
+
+            return null;
+
+        }
+
+        protected void onPostExecute(String file_url) {
+            //Metodo que se hace terminada la ejecucion de la accion
+
+            // dismiss the dialog once product deleted
+            pDialog3.dismiss();
+            if (file_url != null){
+                Toast.makeText(MainActivity3.this, file_url, Toast.LENGTH_LONG).show();
+            }
+
+            new CreateUser2v2().execute();
+
+
+
+        }
+    }
+
+
 
     class CreateUser2 extends AsyncTask<String, String, String> {//Metodo que guarda el estado en la base de datos
 
@@ -312,15 +622,15 @@ public class MainActivity3 extends ActionBarActivity {
 
             super.onPreExecute();
             //Se da valor a la variable con un nuevo dialogo de progreso en la actividad
-            pDialog = new ProgressDialog(MainActivity3.this);
+            pDialog4 = new ProgressDialog(MainActivity3.this);
             //Se le asigna el mensaje a mostrar
-            pDialog.setMessage("Creating User...");
+            pDialog4.setMessage("Registrando cambio...");
             //Se le da falso al indeterminado
-            pDialog.setIndeterminate(false);
+            pDialog4.setIndeterminate(false);
             //Se permite cancelar
-            pDialog.setCancelable(true);
+            pDialog4.setCancelable(false);
             //Se muestra el dialogo de progreso
-            pDialog.show();
+            pDialog4.show();
 
         }
 
@@ -377,11 +687,104 @@ public class MainActivity3 extends ActionBarActivity {
             //Metodo que se hace terminada la ejecucion de la accion
 
             // dismiss the dialog once product deleted
-            pDialog.dismiss();
+            pDialog4.dismiss();
             if (file_url != null){
                 //Se muestra un mensaje en pantalla durante 3.5 segundos
                 Toast.makeText(MainActivity3.this, file_url, Toast.LENGTH_LONG).show();
             }
+            try{
+                new LoadAllProducts().execute();
+
+            }catch (Exception e){
+
+            }
+
+
+
+        }
+    }
+
+    class CreateUser2v2 extends AsyncTask<String, String, String> {//Metodo que guarda el estado en la base de datos
+
+
+        @Override
+        protected void onPreExecute() {
+            //Metodo antes de ser ejecutada la accion
+
+
+            super.onPreExecute();
+            //Se da valor a la variable con un nuevo dialogo de progreso en la actividad
+            pDialog4 = new ProgressDialog(MainActivity3.this);
+            //Se le asigna el mensaje a mostrar
+            pDialog4.setMessage("Registrando cambio...");
+            //Se le da falso al indeterminado
+            pDialog4.setIndeterminate(false);
+            //Se permite cancelar
+            pDialog4.setCancelable(false);
+            //Se muestra el dialogo de progreso
+            pDialog4.show();
+
+        }
+
+        @Override
+        protected String doInBackground(String... args) {
+            //Metodo que se hace en segundo plano
+
+            int compro=0;
+
+            while(compro==0){
+
+
+                int success;
+                String username2 = libres2;
+                try {
+                    // Building Parameters
+                    List params = new ArrayList();
+                    params.add(new BasicNameValuePair("username2", username2));
+
+
+                    Log.d("request!", "starting");
+
+                    //Posting user data to script
+                    JSONObject json = jsonParser.makeHttpRequest(
+                            REGISTER_URL2, "POST", params);
+
+                    // full json response
+                    Log.d("Registering attempt", json.toString());
+
+                    // json success element
+                    success = json.getInt(TAG_SUCCESS);
+                    if (success == 1) {
+                        Log.d("User Created!", json.toString());
+                        compro=compro+1;
+                        return json.getString(TAG_MESSAGE);
+                    }else{
+                        Log.d("Registering Failure!", json.getString(TAG_MESSAGE));
+                        return json.getString(TAG_MESSAGE);
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+
+
+            return null;
+
+        }
+
+        protected void onPostExecute(String file_url) {
+            //Metodo que se hace terminada la ejecucion de la accion
+
+            // dismiss the dialog once product deleted
+            pDialog4.dismiss();
+            if (file_url != null){
+                //Se muestra un mensaje en pantalla durante 3.5 segundos
+                Toast.makeText(MainActivity3.this, file_url, Toast.LENGTH_LONG).show();
+            }
+            new CreateUser3v3().execute();
 
 
 
@@ -399,15 +802,15 @@ public class MainActivity3 extends ActionBarActivity {
 
             super.onPreExecute();
             //Se da valor al dialogo de progreso con uno nuevo en la actividad
-            pDialog = new ProgressDialog(MainActivity3.this);
+            pDialog5 = new ProgressDialog(MainActivity3.this);
             //Se le asigna el mensaje a mostrar
-            pDialog.setMessage("Creating User...");
+            pDialog5.setMessage("Registrando cambio...");
             //Se le da valor falso indeterminado
-            pDialog.setIndeterminate(false);
+            pDialog5.setIndeterminate(false);
             //Se da valor verdadero al cancelable
-            pDialog.setCancelable(true);
+            pDialog5.setCancelable(false);
             //Se muestra el dialogo de progreso
-            pDialog.show();
+            pDialog5.show();
 
         }
 
@@ -466,11 +869,113 @@ public class MainActivity3 extends ActionBarActivity {
             //Metodo que se hace terminada la ejecucion de la accion
 
             // dismiss the dialog once product deleted
-            pDialog.dismiss();
+            pDialog5.dismiss();
             if (file_url != null){
                 //Se muestra un mensaje en pantalla durante 3.5 segundos
                 Toast.makeText(MainActivity3.this, file_url, Toast.LENGTH_LONG).show();
             }
+            try{
+                new LoadAllProducts().execute();
+
+            }catch (Exception e){
+
+            }
+
+
+
+        }
+    }
+
+    class CreateUser3v3 extends AsyncTask<String, String, String> {//Metodo que guarda el estado en la base de datos
+
+
+        @Override
+        protected void onPreExecute() {
+            //Metodo antes de ser ejecutada la accion
+
+
+            super.onPreExecute();
+            //Se da valor al dialogo de progreso con uno nuevo en la actividad
+            pDialog5 = new ProgressDialog(MainActivity3.this);
+            //Se le asigna el mensaje a mostrar
+            pDialog5.setMessage("Registrando cambio...");
+            //Se le da valor falso indeterminado
+            pDialog5.setIndeterminate(false);
+            //Se da valor verdadero al cancelable
+            pDialog5.setCancelable(false);
+            //Se muestra el dialogo de progreso
+            pDialog5.show();
+
+        }
+
+        @Override
+        protected String doInBackground(String... args) {
+            //Metodo que se hace en segundo plano
+
+            // TODO Auto-generated method stub
+            // Check for success tag
+            int compro=0;
+
+            while(compro==0){
+
+
+                int success;
+                String username3 = libres3;
+                try {
+                    // Building Parameters
+                    List params = new ArrayList();
+                    params.add(new BasicNameValuePair("username3", username3));
+
+
+                    Log.d("request!", "starting");
+
+                    //Posting user data to script
+                    JSONObject json = jsonParser.makeHttpRequest(
+                            REGISTER_URL3, "POST", params);
+
+                    // full json response
+                    Log.d("Registering attempt", json.toString());
+
+                    // json success element
+                    success = json.getInt(TAG_SUCCESS);
+                    if (success == 1) {
+                        Log.d("User Created!", json.toString());
+                        compro=compro+1;
+                        return json.getString(TAG_MESSAGE);
+                    }else{
+                        Log.d("Registering Failure!", json.getString(TAG_MESSAGE));
+                        return json.getString(TAG_MESSAGE);
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+
+
+            return null;
+
+        }
+
+        protected void onPostExecute(String file_url) {
+            //Metodo que se hace terminada la ejecucion de la accion
+
+            // dismiss the dialog once product deleted
+            pDialog5.dismiss();
+            if (file_url != null){
+                //Se muestra un mensaje en pantalla durante 3.5 segundos
+                Toast.makeText(MainActivity3.this, file_url, Toast.LENGTH_LONG).show();
+            }
+
+            try{
+                new LoadAllProducts().execute();
+
+            }catch (Exception e){
+
+            }
+
 
 
 
@@ -487,22 +992,30 @@ public class MainActivity3 extends ActionBarActivity {
             //Se da como valor a la variable un nuevo dialogo de progreso en la actividad
             pDialog = new ProgressDialog(MainActivity3.this);
             //Se le asigna el mensaje a mostrar
-            pDialog.setMessage("Creating User...");
+            pDialog.setMessage("Cargando...");
             //Se le da valor falso
             pDialog.setIndeterminate(false);
             //Se le da valor cancelable verdadero
-            pDialog.setCancelable(true);
+            pDialog.setCancelable(false);
             //Se muestra el dialogo de progreso
             pDialog.show();
 
         }
 
         protected String doInBackground(String... args) {
+
+            int compro2=0;
             //Segundo plano
             //Se crea una nueva lista
+
+            while(compro2==0){
+
+
+
             List params = new ArrayList();
             //Se crea una nueva variable para obtener los datos del php
             JSONObject json = jParser.makeHttpRequest(url_all_empresas, "GET", params);
+
             try {
                 int success = json.getInt(TAG_SUCCESS);
                 if (success == 1) {
@@ -513,11 +1026,15 @@ public class MainActivity3 extends ActionBarActivity {
                         estado2=c.getString(TAG_NOMBRE2);
                         estado3=c.getString(TAG_NOMBRE3);
                         Log.d("estado registro", c.getString(TAG_NOMBRE));
+                        compro2=compro2+1;
                     }
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
+            }
+
             return null;
         }
         protected void onPostExecute(String file_url) {
@@ -525,6 +1042,131 @@ public class MainActivity3 extends ActionBarActivity {
 
             //El dialogo de progreso desaparece
             pDialog.dismiss();
+
+            //Obtiene el color elegido del semaforo para que los otros dos se apaguen
+            if(estado.equals("rojo")){
+                sem1.setImageResource(R.drawable.rojoprendido);
+                sem2.setImageResource(R.drawable.amarilloapagado);
+                sem3.setImageResource(R.drawable.verdeapagado);
+
+                //Obtiene el color elegido del semaforo para que los otros dos se apaguen
+            }
+            if(estado.equals("amarillo")){
+                sem1.setImageResource(R.drawable.rojoapagado);
+                sem2.setImageResource(R.drawable.amarilloprendido);
+                sem3.setImageResource(R.drawable.verdeapagado);
+
+                //Obtiene el color elegido del semaforo para que los otros dos se apaguen
+            }
+            if(estado.equals("verde")){
+                sem1.setImageResource(R.drawable.rojoapagado);
+                sem2.setImageResource(R.drawable.amarilloapagado);
+                sem3.setImageResource(R.drawable.verdeprendido);
+
+            }
+
+            if(estado2.equals("rojo")){
+                sem4.setImageResource(R.drawable.rojoprendido);
+                sem5.setImageResource(R.drawable.amarilloapagado);
+                sem6.setImageResource(R.drawable.verdeapagado);
+
+                //Obtiene el color elegido del semaforo para que los otros dos se apaguen
+            }
+            if(estado2.equals("amarillo")){
+                sem4.setImageResource(R.drawable.rojoapagado);
+                sem5.setImageResource(R.drawable.amarilloprendido);
+                sem6.setImageResource(R.drawable.verdeapagado);
+
+                //Obtiene el color elegido del semaforo para que los otros dos se apaguen
+            }
+            if(estado2.equals("verde")){
+                sem4.setImageResource(R.drawable.rojoapagado);
+                sem5.setImageResource(R.drawable.amarilloapagado);
+                sem6.setImageResource(R.drawable.verdeprendido);
+
+            }
+
+            if(estado3.equals("rojo")){
+                sem7.setImageResource(R.drawable.rojoprendido);
+                sem8.setImageResource(R.drawable.amarilloapagado);
+                sem9.setImageResource(R.drawable.verdeapagado);
+
+                //Obtiene el color elegido del semaforo para que los otros dos se apaguen
+            }
+            if(estado3.equals("amarillo")){
+                sem7.setImageResource(R.drawable.rojoapagado);
+                sem8.setImageResource(R.drawable.amarilloprendido);
+                sem9.setImageResource(R.drawable.verdeapagado);
+
+                //Obtiene el color elegido del semaforo para que los otros dos se apaguen
+            }
+            if(estado3.equals("verde")){
+                sem7.setImageResource(R.drawable.rojoapagado);
+                sem8.setImageResource(R.drawable.amarilloapagado);
+                sem9.setImageResource(R.drawable.verdeprendido);
+
+            }
+
+        }
+    }
+
+    class LoadAllProductsBack extends AsyncTask<String, String, String> {
+        //Antes de ejecutar
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //Se da como valor a la variable un nuevo dialogo de progreso en la actividad
+            pDialog2 = new ProgressDialog(MainActivity3.this);
+            //Se le asigna el mensaje a mostrar
+            pDialog2.setMessage("Cargando...");
+            //Se le da valor falso
+            pDialog2.setIndeterminate(false);
+            //Se le da valor cancelable verdadero
+            pDialog2.setCancelable(false);
+            //Se muestra el dialogo de progreso
+            pDialog2.show();
+
+        }
+
+        protected String doInBackground(String... args) {
+
+            int compro=0;
+            //Segundo plano
+            //Se crea una nueva lista
+
+            while(compro==0){
+
+
+
+                List params = new ArrayList();
+                //Se crea una nueva variable para obtener los datos del php
+                JSONObject json = jParser.makeHttpRequest(url_all_empresas, "GET", params);
+                try {
+                    int success = json.getInt(TAG_SUCCESS);
+                    if (success == 1) {
+                        products = json.getJSONArray(TAG_PRODUCTS);
+                        for (int i = 0; i < products.length(); i++) {
+                            JSONObject c = products.getJSONObject(i);
+                            estado=c.getString(TAG_NOMBRE);
+                            estado2=c.getString(TAG_NOMBRE2);
+                            estado3=c.getString(TAG_NOMBRE3);
+                            Log.d("estado registro", c.getString(TAG_NOMBRE));
+                            compro=compro+1;
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            return null;
+        }
+        protected void onPostExecute(String file_url) {
+            //Despues de ser ejecutada la accion
+
+            //El dialogo de progreso desaparece
+            pDialog2.dismiss();
 
             //Obtiene el color elegido del semaforo para que los otros dos se apaguen
             if(estado.equals("rojo")){
@@ -655,6 +1297,8 @@ public class MainActivity3 extends ActionBarActivity {
         tv1.setTypeface(TPP);
 
 
+
+
         //Seguns sea la opcion escogida del color de semaforo
         switch(opc) {
             //Se mostrara en el cuadro de texto el texto entre comillas segun el caso
@@ -737,9 +1381,7 @@ public class MainActivity3 extends ActionBarActivity {
                     //Caso contrario muestra un mensaje de No hay conexion
                     case 1:
                         if (isNetworkAvailable() == true) {
-                            sem1.setImageResource(R.drawable.rojoprendido);//Se activa la imagen del rojo predido
-                            sem2.setImageResource(R.drawable.amarilloapagado);//Se apaga la luz amarilla
-                            sem3.setImageResource(R.drawable.verdeapagado);//Se apaga la luz verde
+
                             libres = "rojo";
                             new CreateUser().execute();// se ejecuta este metodo, que guarda el estado "rojo" en la base de datos
 
@@ -755,9 +1397,7 @@ public class MainActivity3 extends ActionBarActivity {
                     case 2:
 
                         if (isNetworkAvailable() == true) {
-                            sem1.setImageResource(R.drawable.rojoapagado);
-                            sem2.setImageResource(R.drawable.amarilloprendido);
-                            sem3.setImageResource(R.drawable.verdeapagado);
+
                             libres = "amarillo";
                             new CreateUser().execute();
 
@@ -772,9 +1412,7 @@ public class MainActivity3 extends ActionBarActivity {
                     case 3:
 
                         if (isNetworkAvailable() == true) {
-                            sem1.setImageResource(R.drawable.rojoapagado);
-                            sem2.setImageResource(R.drawable.amarilloapagado);
-                            sem3.setImageResource(R.drawable.verdeprendido);
+
                             libres = "verde";
                             new CreateUser().execute();
 
@@ -790,9 +1428,7 @@ public class MainActivity3 extends ActionBarActivity {
 
                     case 4:
                         if(isNetworkAvailable()==true){
-                            sem4.setImageResource(R.drawable.rojoprendido);
-                            sem5.setImageResource(R.drawable.amarilloapagado);
-                            sem6.setImageResource(R.drawable.verdeapagado);
+
                             libres2="rojo";
                             new CreateUser2().execute();
 
@@ -808,9 +1444,7 @@ public class MainActivity3 extends ActionBarActivity {
 
                     case 5:
                         if(isNetworkAvailable()==true){
-                            sem4.setImageResource(R.drawable.rojoapagado);
-                            sem5.setImageResource(R.drawable.amarilloprendido);
-                            sem6.setImageResource(R.drawable.verdeapagado);
+
                             libres2="amarillo";
                             new CreateUser2().execute();
 
@@ -827,9 +1461,7 @@ public class MainActivity3 extends ActionBarActivity {
                     case 6:
 
                         if(isNetworkAvailable()==true){
-                            sem4.setImageResource(R.drawable.rojoapagado);
-                            sem5.setImageResource(R.drawable.amarilloapagado);
-                            sem6.setImageResource(R.drawable.verdeprendido);
+
                             libres2="verde";
                             new CreateUser2().execute();
 
@@ -846,9 +1478,7 @@ public class MainActivity3 extends ActionBarActivity {
                     case 7:
 
                         if(isNetworkAvailable()==true){
-                            sem7.setImageResource(R.drawable.rojoprendido);
-                            sem8.setImageResource(R.drawable.amarilloapagado);
-                            sem9.setImageResource(R.drawable.verdeapagado);
+
                             libres3="rojo";
                             new CreateUser3().execute();
 
@@ -865,9 +1495,7 @@ public class MainActivity3 extends ActionBarActivity {
                     case 8:
 
                         if(isNetworkAvailable()==true){
-                            sem7.setImageResource(R.drawable.rojoapagado);
-                            sem8.setImageResource(R.drawable.amarilloprendido);
-                            sem9.setImageResource(R.drawable.verdeapagado);
+
                             libres3="amarillo";
                             new CreateUser3().execute();
 
@@ -887,9 +1515,7 @@ public class MainActivity3 extends ActionBarActivity {
 
 
                         if(isNetworkAvailable()==true){
-                            sem7.setImageResource(R.drawable.rojoapagado);
-                            sem8.setImageResource(R.drawable.amarilloapagado);
-                            sem9.setImageResource(R.drawable.verdeprendido);
+
                             libres3="verde";
                             new CreateUser3().execute();
 

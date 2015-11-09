@@ -19,9 +19,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps">Map</string>
     <string name="asdasd">Estacionamiento</string>
-    <string name="ess">ESAN</string>
-    <string name="alooo">Alonso de la Molina</string>
-    <string name="polo">El Polo</string>
+    <string name="ess">ESAN-Campus</string>
+    <string name="alooo">Playa Alonso de Molina</string>
+    <string name="polo">Playa El Polo</string>
     <string name="title_activity_main">Estacionamiento</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
