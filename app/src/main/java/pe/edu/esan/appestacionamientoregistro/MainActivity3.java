@@ -1,5 +1,5 @@
 package pe.edu.esan.appestacionamientoregistro;
-
+//Imports que necesita la aplicacion
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -48,6 +48,7 @@ public class MainActivity3 extends ActionBarActivity {
     private String libres2;
     private String libres3;
     String horatot="";
+    String diatot="";
 
     //Dialogo de progreso de carga
     private ProgressDialog pDialog;
@@ -99,13 +100,25 @@ public class MainActivity3 extends ActionBarActivity {
         sem8=(ImageView)findViewById(R.id.sema6);
         sem9=(ImageView)findViewById(R.id.sema5);
 
+        //Se comprueba la conexion a internet
+
         if (isNetworkAvailable() == true){
+            //Si hay conexion a internet se ejecuta el async task LoadAllProducts
+            //Que obtendra el estado actual de cada estacionamiento y cambiara los colores del semaforo con respecto a estos
             try{
                 new LoadAllProducts().execute();
 
             }catch (Exception e){
 
-            }// Este metodo busca el estado actual del estacionamiento en la base de datos
+            }
+
+            try{
+                new LoadTIME1().execute();
+
+            }catch (Exception e){
+
+            }
+
 
 
 
@@ -115,18 +128,48 @@ public class MainActivity3 extends ActionBarActivity {
 
 
 
-
-
         sem1.setOnClickListener(new View.OnClickListener() {//se detecta si se hizo click a este boton(bombilla roja del semaforo)
             @Override
             public void onClick(View v) {
+                if((diatot.contains("Monday") || diatot.contains("Tuesday") || diatot.contains("Wednesday") || diatot.contains("Thursday") || diatot.contains("Friday"))){
 
-                if(horatot.contains("23:2")|| horatot.contains("23:3") || horatot.contains("23:4")|| horatot.contains("23:5")){
+                    if(horatot.contains("23:33") || horatot.contains("23:34")|| horatot.contains("23:35")|| horatot.contains("23:36")|| horatot.contains("17:56")|| horatot.contains("17:57")|| horatot.contains("17:58")|| horatot.contains("17:59")){
 
-                }else{
-                    showPopup(MainActivity3.this, 1);
+                    }else{
+                        showPopup(MainActivity3.this,1);
+
+
+                    }
+
 
                 }
+
+                if(diatot.contains("Saturday")){
+
+                    if(horatot.contains("23:33") || horatot.contains("23:34")|| horatot.contains("23:35")|| horatot.contains("23:36")|| horatot.contains("06:26") ||horatot.contains("06:27")|| horatot.contains("06:28")|| horatot.contains("06:29")){
+
+                    }else{
+                        showPopup(MainActivity3.this,1);
+
+
+                    }
+
+
+                }
+
+                if(diatot.contains("Sunday")){
+
+                    if(horatot.contains("23:33") || horatot.contains("23:34")|| horatot.contains("23:35")|| horatot.contains("23:36") ){
+
+                    }else{
+                        showPopup(MainActivity3.this,1);
+
+
+                    }
+
+
+                }
+
 
 
 
@@ -137,15 +180,46 @@ public class MainActivity3 extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
-                if(horatot.contains("23:2")|| horatot.contains("23:3") || horatot.contains("23:4")|| horatot.contains("23:5")){
 
-                }else{
-                    showPopup(MainActivity3.this,2);
-                    //Cuando el semaforo amarillo es clickeado
-                    //Si es que existe conexion a internet
+                if((diatot.contains("Monday") || diatot.contains("Tuesday") || diatot.contains("Wednesday") || diatot.contains("Thursday") || diatot.contains("Friday"))){
+
+                    if(horatot.contains("23:33") || horatot.contains("23:34")|| horatot.contains("23:35")|| horatot.contains("23:36")|| horatot.contains("17:56")|| horatot.contains("17:57")|| horatot.contains("17:58")|| horatot.contains("17:59")){
+
+                    }else{
+                        showPopup(MainActivity3.this,2);
+
+
+                    }
 
 
                 }
+
+                if(diatot.contains("Saturday")){
+
+                    if(horatot.contains("23:33") || horatot.contains("23:34")|| horatot.contains("23:35")|| horatot.contains("23:36")|| horatot.contains("06:26") ||horatot.contains("06:27")|| horatot.contains("06:28")|| horatot.contains("06:29")){
+
+                    }else{
+                        showPopup(MainActivity3.this,2);
+
+
+                    }
+
+
+                }
+
+                if(diatot.contains("Sunday")){
+
+                    if(horatot.contains("23:33") || horatot.contains("23:34")|| horatot.contains("23:35")|| horatot.contains("23:36") ){
+
+                    }else{
+                        showPopup(MainActivity3.this,2);
+
+
+                    }
+
+
+                }
+
 
 
 
@@ -156,15 +230,52 @@ public class MainActivity3 extends ActionBarActivity {
         sem3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(horatot.contains("23:2")|| horatot.contains("23:3") || horatot.contains("23:4")|| horatot.contains("23:5")){
 
-                }else{
-                    showPopup(MainActivity3.this,3);
-                    //Cuando el semaforo amarillo es clickeado
-                    //Si es que existe conexion a internet
+                if((diatot.contains("Monday") || diatot.contains("Tuesday") || diatot.contains("Wednesday") || diatot.contains("Thursday") || diatot.contains("Friday"))){
+
+                    if(horatot.contains("23:33") || horatot.contains("23:34")|| horatot.contains("23:35")|| horatot.contains("23:36")|| horatot.contains("17:56")|| horatot.contains("17:57")|| horatot.contains("17:58")|| horatot.contains("17:59")){
+
+                    }else{
+                        showPopup(MainActivity3.this,3);
+
+
+                    }
 
 
                 }
+
+                if(diatot.contains("Saturday")){
+
+                    if(horatot.contains("23:33") || horatot.contains("23:34")|| horatot.contains("23:35")|| horatot.contains("23:36")|| horatot.contains("06:26") ||horatot.contains("06:27")|| horatot.contains("06:28")|| horatot.contains("06:29")){
+
+                    }else{
+                        showPopup(MainActivity3.this,3);
+
+
+                    }
+
+
+                }
+
+                if(diatot.contains("Sunday")){
+
+                    if(horatot.contains("23:33") || horatot.contains("23:34")|| horatot.contains("23:35")|| horatot.contains("23:36") ){
+
+                    }else{
+                        showPopup(MainActivity3.this,3);
+
+
+                    }
+
+
+                }
+
+
+
+
+
+
+
 
 
             }
@@ -173,15 +284,114 @@ public class MainActivity3 extends ActionBarActivity {
         sem4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(horatot.contains("23:2")|| horatot.contains("23:3") || horatot.contains("23:4")|| horatot.contains("23:5")){
 
-                }else{
-                    showPopup(MainActivity3.this,4);
-                    //Cuando el semaforo amarillo es clickeado
-                    //Si es que existe conexion a internet
+                if((diatot.contains("Monday") || diatot.contains("Tuesday") || diatot.contains("Wednesday") || diatot.contains("Thursday") || diatot.contains("Friday"))){
+
+                    if(horatot.contains("23:33") || horatot.contains("23:34")|| horatot.contains("23:35")|| horatot.contains("23:36")|| horatot.contains("17:56")|| horatot.contains("17:57")|| horatot.contains("17:58")|| horatot.contains("17:59")){
+
+                    }else{
+
+                        if((diatot.contains("Monday") || diatot.contains("Tuesday") || diatot.contains("Wednesday") || diatot.contains("Thursday") || diatot.contains("Friday"))){
+                            //Si la hora contiene 18, 19, 20, 21, 22 o 23 (se le pone dos puntos para que coja la hora y no lo confunda con los minutos)
+                            if(horatot.contains("18:") || horatot.contains("19:") || horatot.contains("20:")||
+                                    horatot.contains("21:") || horatot.contains("22:") || horatot.contains("23:0") || horatot.contains("23:1") || horatot.contains("23:2")){
+
+
+
+                                showPopup(MainActivity3.this,4);
+
+
+
+
+                            }else{
+
+                                if(!estado2.equals("rojo")){
+                                    showPopup(MainActivity3.this,4);
+                                }
+
+
+                            }
+
+
+
+                        }
+
+
+                    }
 
 
                 }
+
+                if(diatot.contains("Saturday")){
+
+                    if(horatot.contains("23:33") || horatot.contains("23:34")|| horatot.contains("23:35")|| horatot.contains("23:36")|| horatot.contains("06:26") ||horatot.contains("06:27")|| horatot.contains("06:28")|| horatot.contains("06:29")){
+
+                    }else{
+                        if( diatot.contains("Saturday")){
+
+
+
+                            if( horatot.contains("07:3")|| horatot.contains("07:4")|| horatot.contains("07:5") ||
+                                    horatot.contains("08:") || horatot.contains("09:") || horatot.contains("10:") ||
+                                    horatot.contains("11:") || horatot.contains("12:") || horatot.contains("13:") ||
+                                    horatot.contains("14:") || horatot.contains("15:") || horatot.contains("16:") ||
+                                    horatot.contains("17:") || horatot.contains("18:") ||
+                                    horatot.contains("19:") || horatot.contains("20:")
+                                    )
+                            {
+
+
+                                showPopup(MainActivity3.this,4);
+
+
+
+
+                            }
+                            else{
+
+                                if(!estado2.equals("rojo")){
+                                    showPopup(MainActivity3.this,4);
+                                }
+
+
+                            }
+
+
+
+                        }
+
+
+                    }
+
+
+                }
+
+                if(diatot.contains("Sunday")){
+
+                    if(horatot.contains("23:33") || horatot.contains("23:34")|| horatot.contains("23:35")|| horatot.contains("23:36") ){
+
+                    }else{
+                        if(diatot.contains("Sunday")){
+
+
+
+                            if(!estado2.equals("rojo")){
+                                showPopup(MainActivity3.this,4);
+                            }
+
+
+
+                        }
+
+
+                    }
+
+
+                }
+
+
+
+
 
 
 
@@ -191,15 +401,119 @@ public class MainActivity3 extends ActionBarActivity {
         sem5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(horatot.contains("23:2")|| horatot.contains("23:3") || horatot.contains("23:4")|| horatot.contains("23:5")){
 
-                }else{
-                    showPopup(MainActivity3.this,5);
-                    //Cuando el semaforo amarillo es clickeado
-                    //Si es que existe conexion a internet
+                if((diatot.contains("Monday") || diatot.contains("Tuesday") || diatot.contains("Wednesday") || diatot.contains("Thursday") || diatot.contains("Friday"))){
+
+                    if(horatot.contains("23:33") || horatot.contains("23:34")|| horatot.contains("23:35")|| horatot.contains("23:36")|| horatot.contains("17:56")|| horatot.contains("17:57")|| horatot.contains("17:58")|| horatot.contains("17:59")){
+
+                    }else{
+
+                        if((diatot.contains("Monday") || diatot.contains("Tuesday") || diatot.contains("Wednesday") || diatot.contains("Thursday") || diatot.contains("Friday"))){
+                            //Si la hora contiene 18, 19, 20, 21, 22 o 23 (se le pone dos puntos para que coja la hora y no lo confunda con los minutos)
+                            if(horatot.contains("18:") || horatot.contains("19:") || horatot.contains("20:")||
+                                    horatot.contains("21:") || horatot.contains("22:") || horatot.contains("23:0") || horatot.contains("23:1") || horatot.contains("23:2")){
+
+
+
+                                showPopup(MainActivity3.this,5);
+
+
+
+
+                            }else{
+
+                                if(!estado2.equals("rojo")){
+                                    showPopup(MainActivity3.this,5);
+                                }
+
+
+                            }
+
+
+
+                        }
+
+
+                    }
 
 
                 }
+
+                if(diatot.contains("Saturday")){
+
+                    if(horatot.contains("23:33") || horatot.contains("23:34")|| horatot.contains("23:35")|| horatot.contains("23:36")|| horatot.contains("06:26") ||horatot.contains("06:27")|| horatot.contains("06:28")|| horatot.contains("06:29")){
+
+                    }else{
+                        if( diatot.contains("Saturday")){
+
+
+
+                            if( horatot.contains("07:3")|| horatot.contains("07:4")|| horatot.contains("07:5") ||
+                                    horatot.contains("08:") || horatot.contains("09:") || horatot.contains("10:") ||
+                                    horatot.contains("11:") || horatot.contains("12:") || horatot.contains("13:") ||
+                                    horatot.contains("14:") || horatot.contains("15:") || horatot.contains("16:") ||
+                                    horatot.contains("17:") || horatot.contains("18:") ||
+                                    horatot.contains("19:") || horatot.contains("20:")
+                                    )
+                            {
+
+
+                                showPopup(MainActivity3.this,5);
+
+
+
+
+                            }
+                            else{
+
+                                if(!estado2.equals("rojo")){
+                                    showPopup(MainActivity3.this,5);
+                                }
+
+
+                            }
+
+
+
+                        }
+
+
+                    }
+
+
+                }
+
+                if(diatot.contains("Sunday")){
+
+                    if(horatot.contains("23:33") || horatot.contains("23:34")|| horatot.contains("23:35")|| horatot.contains("23:36") ){
+
+                    }else{
+                        if(diatot.contains("Sunday")){
+
+
+
+                            if(!estado2.equals("rojo")){
+                                showPopup(MainActivity3.this,5);
+                            }
+
+
+
+                        }
+
+
+                    }
+
+
+                }
+
+
+
+
+
+
+
+
+
 
             }
         });
@@ -207,15 +521,118 @@ public class MainActivity3 extends ActionBarActivity {
         sem6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(horatot.contains("23:2")|| horatot.contains("23:3") || horatot.contains("23:4")|| horatot.contains("23:5")){
 
-                }else{
-                    showPopup(MainActivity3.this,6);
-                    //Cuando el semaforo amarillo es clickeado
-                    //Si es que existe conexion a internet
+                if((diatot.contains("Monday") || diatot.contains("Tuesday") || diatot.contains("Wednesday") || diatot.contains("Thursday") || diatot.contains("Friday"))){
+
+                    if(horatot.contains("23:33") || horatot.contains("23:34")|| horatot.contains("23:35")|| horatot.contains("23:36")|| horatot.contains("17:56")|| horatot.contains("17:57")|| horatot.contains("17:58")|| horatot.contains("17:59")){
+
+                    }else{
+
+                        if((diatot.contains("Monday") || diatot.contains("Tuesday") || diatot.contains("Wednesday") || diatot.contains("Thursday") || diatot.contains("Friday"))){
+                            //Si la hora contiene 18, 19, 20, 21, 22 o 23 (se le pone dos puntos para que coja la hora y no lo confunda con los minutos)
+                            if(horatot.contains("18:") || horatot.contains("19:") || horatot.contains("20:")||
+                                    horatot.contains("21:") || horatot.contains("22:") || horatot.contains("23:0") || horatot.contains("23:1") || horatot.contains("23:2")){
+
+
+
+                                showPopup(MainActivity3.this,6);
+
+
+
+
+                            }else{
+
+                                if(!estado2.equals("rojo")){
+                                    showPopup(MainActivity3.this,6);
+                                }
+
+
+                            }
+
+
+
+                        }
+
+
+                    }
 
 
                 }
+
+                if(diatot.contains("Saturday")){
+
+                    if(horatot.contains("23:33") || horatot.contains("23:34")|| horatot.contains("23:35")|| horatot.contains("23:36")|| horatot.contains("06:26") ||horatot.contains("06:27")|| horatot.contains("06:28")|| horatot.contains("06:29")){
+
+                    }else{
+                        if( diatot.contains("Saturday")){
+
+
+
+                            if( horatot.contains("07:3")|| horatot.contains("07:4")|| horatot.contains("07:5") ||
+                                    horatot.contains("08:") || horatot.contains("09:") || horatot.contains("10:") ||
+                                    horatot.contains("11:") || horatot.contains("12:") || horatot.contains("13:") ||
+                                    horatot.contains("14:") || horatot.contains("15:") || horatot.contains("16:") ||
+                                    horatot.contains("17:") || horatot.contains("18:") ||
+                                    horatot.contains("19:") || horatot.contains("20:")
+                                    )
+                            {
+
+
+                                showPopup(MainActivity3.this,6);
+
+
+
+
+                            }
+                            else{
+
+                                if(!estado2.equals("rojo")){
+                                    showPopup(MainActivity3.this,6);
+                                }
+
+
+                            }
+
+
+
+                        }
+
+
+                    }
+
+
+                }
+
+                if(diatot.contains("Sunday")){
+
+                    if(horatot.contains("23:33") || horatot.contains("23:34")|| horatot.contains("23:35")|| horatot.contains("23:36") ){
+
+                    }else{
+                        if(diatot.contains("Sunday")){
+
+
+
+                            if(!estado2.equals("rojo")){
+                                showPopup(MainActivity3.this,6);
+                            }
+
+
+
+                        }
+
+
+                    }
+
+
+                }
+
+
+
+
+
+
+
+
 
 
 
@@ -226,15 +643,77 @@ public class MainActivity3 extends ActionBarActivity {
         sem7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(horatot.contains("23:2")|| horatot.contains("23:3") || horatot.contains("23:4")|| horatot.contains("23:5")){
 
-                }else{
-                    showPopup(MainActivity3.this,7);
-                    //Cuando el semaforo amarillo es clickeado
-                    //Si es que existe conexion a internet
+                if((diatot.contains("Monday") || diatot.contains("Tuesday") || diatot.contains("Wednesday") || diatot.contains("Thursday") || diatot.contains("Friday"))){
+
+                    if(horatot.contains("23:33") || horatot.contains("23:34")|| horatot.contains("23:35")|| horatot.contains("23:36")|| horatot.contains("17:56")|| horatot.contains("17:57")|| horatot.contains("17:58")|| horatot.contains("17:59")){
+
+                    }else{
+                        if((diatot.contains("Monday") || diatot.contains("Tuesday") || diatot.contains("Wednesday") || diatot.contains("Thursday") || diatot.contains("Friday"))){
+                            //Si la hora contiene 18, 19, 20, 21, 22 o 23 (se le pone dos puntos para que coja la hora y no lo confunda con los minutos)
+                            if(horatot.contains("18:") || horatot.contains("19:") || horatot.contains("20:")||
+                                    horatot.contains("21:") || horatot.contains("22:") || horatot.contains("23:0") || horatot.contains("23:1") || horatot.contains("23:2")){
+
+
+                                showPopup(MainActivity3.this,7);
+
+
+                            }else{
+
+                                if(!estado3.equals("rojo")){
+                                    showPopup(MainActivity3.this,7);
+                                }
+
+
+                            }
+
+
+
+                        }
+
+
+                    }
 
 
                 }
+
+                if(diatot.contains("Saturday")){
+
+                    if(horatot.contains("23:33") || horatot.contains("23:34")|| horatot.contains("23:35")|| horatot.contains("23:36")|| horatot.contains("06:26") ||horatot.contains("06:27")|| horatot.contains("06:28")|| horatot.contains("06:29")){
+
+                    }else{
+                        if(!estado3.equals("rojo")){
+                            showPopup(MainActivity3.this,7);
+                        }
+
+
+                    }
+
+
+                }
+
+                if(diatot.contains("Sunday")){
+
+                    if(horatot.contains("23:33") || horatot.contains("23:34")|| horatot.contains("23:35")|| horatot.contains("23:36") ){
+
+                    }else{
+                        if(!estado3.equals("rojo")){
+                            showPopup(MainActivity3.this,7);
+                        }
+
+
+                    }
+
+
+                }
+
+
+
+
+
+
+
+
 
 
 
@@ -244,15 +723,73 @@ public class MainActivity3 extends ActionBarActivity {
         sem8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(horatot.contains("23:2")|| horatot.contains("23:3") || horatot.contains("23:4")|| horatot.contains("23:5")){
+                if((diatot.contains("Monday") || diatot.contains("Tuesday") || diatot.contains("Wednesday") || diatot.contains("Thursday") || diatot.contains("Friday"))){
 
-                }else{
-                    showPopup(MainActivity3.this,8);
-                    //Cuando el semaforo amarillo es clickeado
-                    //Si es que existe conexion a internet
+                    if(horatot.contains("23:33") || horatot.contains("23:34")|| horatot.contains("23:35")|| horatot.contains("23:36")|| horatot.contains("17:56")|| horatot.contains("17:57")|| horatot.contains("17:58")|| horatot.contains("17:59")){
+
+                    }else{
+                        if((diatot.contains("Monday") || diatot.contains("Tuesday") || diatot.contains("Wednesday") || diatot.contains("Thursday") || diatot.contains("Friday"))){
+                            //Si la hora contiene 18, 19, 20, 21, 22 o 23 (se le pone dos puntos para que coja la hora y no lo confunda con los minutos)
+                            if(horatot.contains("18:") || horatot.contains("19:") || horatot.contains("20:")||
+                                    horatot.contains("21:") || horatot.contains("22:") || horatot.contains("23:0") || horatot.contains("23:1") || horatot.contains("23:2")){
+
+
+                                showPopup(MainActivity3.this,8);
+
+
+                            }else{
+
+                                if(!estado3.equals("rojo")){
+                                    showPopup(MainActivity3.this,8);
+                                }
+
+
+                            }
+
+
+
+                        }
+
+
+                    }
 
 
                 }
+
+                if(diatot.contains("Saturday")){
+
+                    if(horatot.contains("23:33") || horatot.contains("23:34")|| horatot.contains("23:35")|| horatot.contains("23:36")|| horatot.contains("06:26") ||horatot.contains("06:27")|| horatot.contains("06:28")|| horatot.contains("06:29")){
+
+                    }else{
+                        if(!estado3.equals("rojo")){
+                            showPopup(MainActivity3.this,8);
+                        }
+
+
+                    }
+
+
+                }
+
+                if(diatot.contains("Sunday")){
+
+                    if(horatot.contains("23:33") || horatot.contains("23:34")|| horatot.contains("23:35")|| horatot.contains("23:36") ){
+
+                    }else{
+                        if(!estado3.equals("rojo")){
+                            showPopup(MainActivity3.this,8);
+                        }
+
+
+                    }
+
+
+                }
+
+
+
+
+
 
 
             }
@@ -261,21 +798,79 @@ public class MainActivity3 extends ActionBarActivity {
         sem9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(horatot.contains("23:2")|| horatot.contains("23:3") || horatot.contains("23:4")|| horatot.contains("23:5")){
+                if((diatot.contains("Monday") || diatot.contains("Tuesday") || diatot.contains("Wednesday") || diatot.contains("Thursday") || diatot.contains("Friday"))){
 
-                }else{
-                    showPopup(MainActivity3.this,9);
-                    //Cuando el semaforo amarillo es clickeado
-                    //Si es que existe conexion a internet
+                    if(horatot.contains("23:33") || horatot.contains("23:34")|| horatot.contains("23:35")|| horatot.contains("23:36")|| horatot.contains("17:56")|| horatot.contains("17:57")|| horatot.contains("17:58")|| horatot.contains("17:59")){
+
+                    }else{
+                        if((diatot.contains("Monday") || diatot.contains("Tuesday") || diatot.contains("Wednesday") || diatot.contains("Thursday") || diatot.contains("Friday"))){
+                            //Si la hora contiene 18, 19, 20, 21, 22 o 23 (se le pone dos puntos para que coja la hora y no lo confunda con los minutos)
+                            if(horatot.contains("18:") || horatot.contains("19:") || horatot.contains("20:")||
+                                    horatot.contains("21:") || horatot.contains("22:") || horatot.contains("23:0") || horatot.contains("23:1") || horatot.contains("23:2")){
+
+
+                                showPopup(MainActivity3.this,9);
+
+
+                            }else{
+
+                                if(!estado3.equals("rojo")){
+                                    showPopup(MainActivity3.this,9);
+                                }
+
+
+                            }
+
+
+
+                        }
+
+
+                    }
+
+
+                }
+
+                if(diatot.contains("Saturday")){
+
+                    if(horatot.contains("23:33") || horatot.contains("23:34")|| horatot.contains("23:35")|| horatot.contains("23:36")|| horatot.contains("06:26") ||horatot.contains("06:27")|| horatot.contains("06:28")|| horatot.contains("06:29")){
+
+                    }else{
+                        if(!estado3.equals("rojo")){
+                            showPopup(MainActivity3.this,9);
+                        }
+
+
+                    }
+
+
+                }
+
+                if(diatot.contains("Sunday")){
+
+                    if(horatot.contains("23:33") || horatot.contains("23:34")|| horatot.contains("23:35")|| horatot.contains("23:36") ){
+
+                    }else{
+                        if(!estado3.equals("rojo")){
+                            showPopup(MainActivity3.this,9);
+                        }
+
+
+                    }
 
 
                 }
 
 
+
+
+
+
+
             }
         });
         //Se crea y da valor a un numero para que sea el tiempo del handle en milisegundos
-        final int delay = 30000; //milliseconds
+        final int delay = 10000; //milliseconds
         //Se crea una variable handle nueva
         final Handler hT = new Handler();
 
@@ -286,6 +881,7 @@ public class MainActivity3 extends ActionBarActivity {
 
                 try{
                     new LoadTIME2().execute();
+                    //Se ejecuta el async task LoafTIME2 que obtiene la hora actual de un servidor en internet
 
 
                     Log.v("asd", "apagon");
@@ -346,6 +942,7 @@ public class MainActivity3 extends ActionBarActivity {
                 //Se le da valor a la cadena de texto convirtiendo el dato encontrado a texto
                 diac = dia.text();
                 horatot=horac;
+                diatot=diac;
                 Log.v("asd",horac);
 
                 /*
@@ -384,7 +981,7 @@ public class MainActivity3 extends ActionBarActivity {
 
                 if((diac.contains("Monday") || diac.contains("Tuesday") || diac.contains("Wednesday") || diac.contains("Thursday") || diac.contains("Friday")|| diac.contains("Sunday")|| diac.contains("Saturday"))){
                     //Si la hora contiene 18, 19, 20, 21, 22 o 23 (se le pone dos puntos para que coja la hora y no lo confunda con los minutos)
-                    if(horac.contains("23:3")|| horac.contains("23:4") || horac.contains("23:5")){
+                    if(horac.contains("23:34")||horac.contains("23:35")||horac.contains("23:36")){
 
                         Log.v("estados", estado+estado2+estado3);
 
@@ -404,17 +1001,290 @@ public class MainActivity3 extends ActionBarActivity {
                         }
 
 
+                    }
 
 
-                    }else {
+                }
+
+                if((diac.contains("Monday") || diac.contains("Tuesday") || diac.contains("Wednesday") || diac.contains("Thursday") || diac.contains("Friday"))){
+                    //Si la hora contiene 18, 19, 20, 21, 22 o 23 (se le pone dos puntos para que coja la hora y no lo confunda con los minutos)
+                    if(horac.contains("17:57") ||horac.contains("17:58")||horac.contains("17:59")){
+
+                        Log.v("estados", estado+estado2+estado3);
+
+
+                        if(estado2.equals("verde") && estado3.equals("verde")){
+
+
+                        }else{
+
+                            Log.v("asd","entrogogo");
+                            libres = estado;
+                            libres2 = "verde";
+                            libres3 = "verde";
+                            new CreateUserv2().execute();
+
+
+                        }
 
 
                     }
+
+
+                }
+
+                if(diac.contains("Sunday")){
+                    //Si la hora contiene 18, 19, 20, 21, 22 o 23 (se le pone dos puntos para que coja la hora y no lo confunda con los minutos)
+                    if(horac.contains("06:27") ||horac.contains("06:28")||horac.contains("06:29")){
+
+                        Log.v("estados", estado+estado2+estado3);
+
+
+                        if(estado2.equals("verde")){
+
+
+                        }else{
+
+                            Log.v("asd","entrogogo");
+                            libres = estado;
+                            libres2 = "verde";
+                            libres3 = estado;
+                            new CreateUserv2().execute();
+
+
+                        }
+
+
+                    }
+
+                    if(horac.contains("20:57") ||horac.contains("20:58")||horac.contains("20:59")){
+
+
+
+                        if(estado2.equals("rojo")){
+
+
+                        }else{
+
+                            Log.v("asd","entrogogo");
+                            libres = estado;
+                            libres2 = "rojo";
+                            libres3 = estado;
+                            new CreateUserv2().execute();
+
+
+                        }
+
+
+                    }
+
+
                 }
 
             }catch (Exception e){
 
             }
+
+        }
+    }
+
+    private class LoadTIME1 extends AsyncTask<Void, Void, Void> {
+        //Sacado de: http://www.survivingwithandroid.com/2014/04/parsing-html-in-android-with-jsoup.html
+        //Pagina web real: http://www.timeanddate.com/worldclock/peru/lima
+        //HTML DE WEB: view-source:http://www.timeanddate.com/worldclock/peru/lima
+
+
+
+        //Se crea una cadena de texto cuyo valor es la URL de la pagina web
+        String url = "http://www.timeanddate.com/worldclock/peru/lima";
+        //Se crea una variable de tipo Documento y se le da como valor inicial nulo
+        Document doc = null;
+        //Se crean dos cadenas de texto para la hora y el dia
+        String horac;
+        String diac;
+
+        @Override
+        protected void onPreExecute() {
+            //Metodo antes de ejecutar la accion
+            super.onPreExecute();
+
+            //Se da como valor a la variable un nuevo dialogo de progreso en la actividad
+            pDialog2 = new ProgressDialog(MainActivity3.this);
+            //Se le asigna el mensaje a mostrar
+            pDialog2.setMessage("Cargando...");
+            //Se le da valor falso
+            pDialog2.setIndeterminate(false);
+            //Se le da valor cancelable verdadero
+            pDialog2.setCancelable(false);
+            //Se muestra el dialogo de progreso
+            pDialog2.show();
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            //Metodo que ocurre en segundo plano
+            // TODO Auto-generated method stub
+
+            //Intenta
+            try {
+                // obtener el documento de la pagina conectandose con el Jsoup
+                //TIEMPO HH:MM
+                doc = Jsoup.connect(url).get();
+                //Se crea un elemento llamado hora cuyo valor sera el dato(hora y minutos) dentro del parametro dado
+                Elements hora = doc.select("span[id=fshrmin]");
+                //Se le da valor a la cadena de texto convirtiendo el dato encontrado a texto
+                horac = hora.text();
+
+                //Se crea un elemento cuyo valor sera el dato (fecha en ingles) dentro del parametro dado
+                Elements dia = doc.select("span[id=ctdat]");
+                //Se le da valor a la cadena de texto convirtiendo el dato encontrado a texto
+                diac = dia.text();
+                horatot=horac;
+                diatot=diac;
+                Log.v("asd",horac);
+
+                /*
+                Elements topicList = doc.select("h2.topic");
+                Log.i("TIEMPO", "META: " + metaElem);
+                Log.i("TIEMPO", "TOPICLIST : " + topicList);
+                Elements links = doc.select("a[href]"); // a with href
+                Element masthead = doc.select("div.masthead").first();
+                // div with class=masthead
+                Elements resultLinks = doc.select("h3.r > a"); // direct a after h3
+                Log.i("TIEMPO", "AHREF: " + links);
+                Log.i("TIEMPO", "MASTHEAD: " + masthead);
+                Log.i("TIEMPO", "ResultLinks : " + resultLinks);
+                */
+
+
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                Log.i("TIEMPO", "ERROR");
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            //Metodo que ocurre despues de terminada la accion
+            // TODO Auto-generated method stub
+            super.onPostExecute(result);
+
+
+            //Se verifica que el texto contenga los valores dado en parametros:
+            //(Si contiene Lunes, Martes, Miercoles, Jueves o Viernes)
+
+            try{
+
+                if((diac.contains("Monday") || diac.contains("Tuesday") || diac.contains("Wednesday") || diac.contains("Thursday") || diac.contains("Friday")|| diac.contains("Sunday")|| diac.contains("Saturday"))){
+                    //Si la hora contiene 18, 19, 20, 21, 22 o 23 (se le pone dos puntos para que coja la hora y no lo confunda con los minutos)
+                    if(horac.contains("23:34")||horac.contains("23:35")||horac.contains("23:36")){
+
+                        Log.v("estados", estado+estado2+estado3);
+
+
+                        if(estado.equals("verde") && estado2.equals("rojo") && estado3.equals("rojo")){
+
+
+                        }else{
+
+                            Log.v("asd","entrogogo");
+                            libres = "verde";
+                            libres2 = "rojo";
+                            libres3 = "rojo";
+                            new CreateUserv2().execute();
+
+
+                        }
+
+
+                    }
+
+
+                }
+
+                if((diac.contains("Monday") || diac.contains("Tuesday") || diac.contains("Wednesday") || diac.contains("Thursday") || diac.contains("Friday"))){
+                    //Si la hora contiene 18, 19, 20, 21, 22 o 23 (se le pone dos puntos para que coja la hora y no lo confunda con los minutos)
+                    if(horac.contains("17:57") ||horac.contains("17:58")||horac.contains("17:59")){
+
+                        Log.v("estados", estado+estado2+estado3);
+
+
+                        if(estado2.equals("verde") && estado3.equals("verde")){
+
+
+                        }else{
+
+                            Log.v("asd","entrogogo");
+                            libres = estado;
+                            libres2 = "verde";
+                            libres3 = "verde";
+                            new CreateUserv2().execute();
+
+
+                        }
+
+
+                    }
+
+
+                }
+
+                if(diac.contains("Sunday")){
+                    //Si la hora contiene 18, 19, 20, 21, 22 o 23 (se le pone dos puntos para que coja la hora y no lo confunda con los minutos)
+                    if(horac.contains("06:27") ||horac.contains("06:28")||horac.contains("06:29")){
+
+                        Log.v("estados", estado+estado2+estado3);
+
+
+                        if(estado2.equals("verde")){
+
+
+                        }else{
+
+                            Log.v("asd","entrogogo");
+                            libres = estado;
+                            libres2 = "verde";
+                            libres3 = estado;
+                            new CreateUserv2().execute();
+
+
+                        }
+
+
+                    }
+
+                    if(horac.contains("20:57") ||horac.contains("20:58")||horac.contains("20:59")){
+
+
+
+                        if(estado2.equals("rojo")){
+
+
+                        }else{
+
+                            Log.v("asd","entrogogo");
+                            libres = estado;
+                            libres2 = "rojo";
+                            libres3 = estado;
+                            new CreateUserv2().execute();
+
+
+                        }
+
+
+                    }
+
+
+                }
+
+            }catch (Exception e){
+
+            }
+
+            pDialog2.dismiss();
 
         }
     }
@@ -1110,130 +1980,7 @@ public class MainActivity3 extends ActionBarActivity {
         }
     }
 
-    class LoadAllProductsBack extends AsyncTask<String, String, String> {
-        //Antes de ejecutar
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            //Se da como valor a la variable un nuevo dialogo de progreso en la actividad
-            pDialog2 = new ProgressDialog(MainActivity3.this);
-            //Se le asigna el mensaje a mostrar
-            pDialog2.setMessage("Cargando...");
-            //Se le da valor falso
-            pDialog2.setIndeterminate(false);
-            //Se le da valor cancelable verdadero
-            pDialog2.setCancelable(false);
-            //Se muestra el dialogo de progreso
-            pDialog2.show();
 
-        }
-
-        protected String doInBackground(String... args) {
-
-            int compro=0;
-            //Segundo plano
-            //Se crea una nueva lista
-
-            while(compro==0){
-
-
-
-                List params = new ArrayList();
-                //Se crea una nueva variable para obtener los datos del php
-                JSONObject json = jParser.makeHttpRequest(url_all_empresas, "GET", params);
-                try {
-                    int success = json.getInt(TAG_SUCCESS);
-                    if (success == 1) {
-                        products = json.getJSONArray(TAG_PRODUCTS);
-                        for (int i = 0; i < products.length(); i++) {
-                            JSONObject c = products.getJSONObject(i);
-                            estado=c.getString(TAG_NOMBRE);
-                            estado2=c.getString(TAG_NOMBRE2);
-                            estado3=c.getString(TAG_NOMBRE3);
-                            Log.d("estado registro", c.getString(TAG_NOMBRE));
-                            compro=compro+1;
-                        }
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-
-            return null;
-        }
-        protected void onPostExecute(String file_url) {
-            //Despues de ser ejecutada la accion
-
-            //El dialogo de progreso desaparece
-            pDialog2.dismiss();
-
-            //Obtiene el color elegido del semaforo para que los otros dos se apaguen
-            if(estado.equals("rojo")){
-                sem1.setImageResource(R.drawable.rojoprendido);
-                sem2.setImageResource(R.drawable.amarilloapagado);
-                sem3.setImageResource(R.drawable.verdeapagado);
-
-                //Obtiene el color elegido del semaforo para que los otros dos se apaguen
-            }
-            if(estado.equals("amarillo")){
-                sem1.setImageResource(R.drawable.rojoapagado);
-                sem2.setImageResource(R.drawable.amarilloprendido);
-                sem3.setImageResource(R.drawable.verdeapagado);
-
-                //Obtiene el color elegido del semaforo para que los otros dos se apaguen
-            }
-            if(estado.equals("verde")){
-                sem1.setImageResource(R.drawable.rojoapagado);
-                sem2.setImageResource(R.drawable.amarilloapagado);
-                sem3.setImageResource(R.drawable.verdeprendido);
-
-            }
-
-            if(estado2.equals("rojo")){
-                sem4.setImageResource(R.drawable.rojoprendido);
-                sem5.setImageResource(R.drawable.amarilloapagado);
-                sem6.setImageResource(R.drawable.verdeapagado);
-
-                //Obtiene el color elegido del semaforo para que los otros dos se apaguen
-            }
-            if(estado2.equals("amarillo")){
-                sem4.setImageResource(R.drawable.rojoapagado);
-                sem5.setImageResource(R.drawable.amarilloprendido);
-                sem6.setImageResource(R.drawable.verdeapagado);
-
-                //Obtiene el color elegido del semaforo para que los otros dos se apaguen
-            }
-            if(estado2.equals("verde")){
-                sem4.setImageResource(R.drawable.rojoapagado);
-                sem5.setImageResource(R.drawable.amarilloapagado);
-                sem6.setImageResource(R.drawable.verdeprendido);
-
-            }
-
-            if(estado3.equals("rojo")){
-                sem7.setImageResource(R.drawable.rojoprendido);
-                sem8.setImageResource(R.drawable.amarilloapagado);
-                sem9.setImageResource(R.drawable.verdeapagado);
-
-                //Obtiene el color elegido del semaforo para que los otros dos se apaguen
-            }
-            if(estado3.equals("amarillo")){
-                sem7.setImageResource(R.drawable.rojoapagado);
-                sem8.setImageResource(R.drawable.amarilloprendido);
-                sem9.setImageResource(R.drawable.verdeapagado);
-
-                //Obtiene el color elegido del semaforo para que los otros dos se apaguen
-            }
-            if(estado3.equals("verde")){
-                sem7.setImageResource(R.drawable.rojoapagado);
-                sem8.setImageResource(R.drawable.amarilloapagado);
-                sem9.setImageResource(R.drawable.verdeprendido);
-
-            }
-
-        }
-    }
 
     //Metodo que permite mostar un PopUp
     private void showPopup(final Activity context, final int opc) {
@@ -1321,19 +2068,19 @@ public class MainActivity3 extends ActionBarActivity {
                 break;
 
             case 4:
-                tv1.setText("¿Es seguro que desea cambiar el estado del estacionamiento de Alonso de la Molina a rojo?");
+                tv1.setText("¿Es seguro que desea cambiar el estado del estacionamiento de Alonso de Molina a rojo?");
                 popim.setImageResource(R.drawable.rojoprendido);
 
                 break;
 
             case 5:
-                tv1.setText("¿Está seguro que desea cambiar el estado del estacionamiento de Alonso de la Molina a amarillo?");
+                tv1.setText("¿Está seguro que desea cambiar el estado del estacionamiento de Alonso de Molina a amarillo?");
                 popim.setImageResource(R.drawable.amarilloprendido);
 
                 break;
 
             case 6:
-                tv1.setText("¿Está seguro que desea cambiar el estado del estacionamiento de Alonso de la Molina a verde?");
+                tv1.setText("¿Está seguro que desea cambiar el estado del estacionamiento de Alonso de Molina a verde?");
                 popim.setImageResource(R.drawable.verdeprendido);
                 break;
 
