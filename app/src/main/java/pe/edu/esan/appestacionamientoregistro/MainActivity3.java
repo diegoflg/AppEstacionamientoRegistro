@@ -70,13 +70,13 @@ public class MainActivity3 extends ActionBarActivity {
     private static String url_all_empresas = "http://estacionamientos.esan.edu.pe/esconnect/get_all_empresas.php";
     //Cadenas de texto privadas cuyos valores son los nombres de los campos en la base de datos
     private static final String TAG_PRODUCTS = "users";
-    private static final String TAG_NOMBRE = "username";
-    private static final String TAG_NOMBRE2 = "username2";
-    private static final String TAG_NOMBRE3 = "username3";
+    private static final String TAG_NOMBRE = "username";//ESAN-Campus
+    private static final String TAG_NOMBRE2 = "username2";//Alonso de Molina
+    private static final String TAG_NOMBRE3 = "username3";//El Polo
     //Cadenas privadas de texto cuyos valores iniciales son waa
-    private String estado="waa";
-    private String estado2="waa";
-    private String estado3="waa";
+    private String estado="waa";//ESAN-Campus
+    private String estado2="waa";//Alonso de Molina
+    private String estado3="waa";//El Polo
     //Nuevo array JSON cuyo valor inicial es nulo
     JSONArray products = null;
     //Nueva variable JSONParser(clase)
