@@ -331,7 +331,7 @@ public class MainActivity3 extends ActionBarActivity {
 
 
 
-                            if( horatot.contains("07:3")|| horatot.contains("07:4")|| horatot.contains("07:5") ||
+                            if( horatot.contains("06:3")|| horatot.contains("06:4")|| horatot.contains("06:5") || horatot.contains("07:") ||
                                     horatot.contains("08:") || horatot.contains("09:") || horatot.contains("10:") ||
                                     horatot.contains("11:") || horatot.contains("12:") || horatot.contains("13:") ||
                                     horatot.contains("14:") || horatot.contains("15:") || horatot.contains("16:") ||
@@ -448,7 +448,7 @@ public class MainActivity3 extends ActionBarActivity {
 
 
 
-                            if( horatot.contains("07:3")|| horatot.contains("07:4")|| horatot.contains("07:5") ||
+                            if( horatot.contains("06:3")|| horatot.contains("06:4")|| horatot.contains("06:5") || horatot.contains("07:") ||
                                     horatot.contains("08:") || horatot.contains("09:") || horatot.contains("10:") ||
                                     horatot.contains("11:") || horatot.contains("12:") || horatot.contains("13:") ||
                                     horatot.contains("14:") || horatot.contains("15:") || horatot.contains("16:") ||
@@ -568,7 +568,7 @@ public class MainActivity3 extends ActionBarActivity {
 
 
 
-                            if( horatot.contains("07:3")|| horatot.contains("07:4")|| horatot.contains("07:5") ||
+                            if( horatot.contains("06:3")|| horatot.contains("06:4")|| horatot.contains("06:5") || horatot.contains("07:") ||
                                     horatot.contains("08:") || horatot.contains("09:") || horatot.contains("10:") ||
                                     horatot.contains("11:") || horatot.contains("12:") || horatot.contains("13:") ||
                                     horatot.contains("14:") || horatot.contains("15:") || horatot.contains("16:") ||
@@ -937,6 +937,7 @@ public class MainActivity3 extends ActionBarActivity {
                 //Se le da valor a la cadena de texto convirtiendo el dato encontrado a texto
                 horac = hora.text();
 
+
                 //Se crea un elemento cuyo valor sera el dato (fecha en ingles) dentro del parametro dado
                 Elements dia = doc.select("span[id=ctdat]");
                 //Se le da valor a la cadena de texto convirtiendo el dato encontrado a texto
@@ -1033,7 +1034,7 @@ public class MainActivity3 extends ActionBarActivity {
 
                 }
 
-                if(diac.contains("Sunday")){
+                if(diac.contains("Saturday")){
                     //Si la hora contiene 18, 19, 20, 21, 22 o 23 (se le pone dos puntos para que coja la hora y no lo confunda con los minutos)
                     if(horac.contains("06:27") ||horac.contains("06:28")||horac.contains("06:29")){
 
@@ -1048,7 +1049,7 @@ public class MainActivity3 extends ActionBarActivity {
                             Log.v("asd","entrogogo");
                             libres = estado;
                             libres2 = "verde";
-                            libres3 = estado;
+                            libres3 = "rojo";
                             new CreateUserv2().execute();
 
 
@@ -1113,6 +1114,7 @@ public class MainActivity3 extends ActionBarActivity {
             //Se le asigna el mensaje a mostrar
             pDialog2.setMessage("Cargando...");
             //Se le da valor falso
+
             pDialog2.setIndeterminate(false);
             //Se le da valor cancelable verdadero
             pDialog2.setCancelable(false);
@@ -1232,7 +1234,7 @@ public class MainActivity3 extends ActionBarActivity {
 
                 }
 
-                if(diac.contains("Sunday")){
+                if(diac.contains("Saturday")){
                     //Si la hora contiene 18, 19, 20, 21, 22 o 23 (se le pone dos puntos para que coja la hora y no lo confunda con los minutos)
                     if(horac.contains("06:27") ||horac.contains("06:28")||horac.contains("06:29")){
 
@@ -1247,7 +1249,7 @@ public class MainActivity3 extends ActionBarActivity {
                             Log.v("asd","entrogogo");
                             libres = estado;
                             libres2 = "verde";
-                            libres3 = estado;
+                            libres3 = "rojo";
                             new CreateUserv2().execute();
 
 
